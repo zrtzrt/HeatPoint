@@ -164,8 +164,8 @@ e.printStackTrace();logger.error("Exception",e);
 			PrintWriter out = response.getWriter();  
 				out.write("{\"location\":[");
 				for (int i = 0; i < ll.size(); i++) {
-					out.write("{\"id\":\""+ll.get(i).getId()+"\"");
-					out.write(",\"name\":\""+ll.get(i).getName()+"\"");
+//					out.write("{\"id\":\""+ll.get(i).getId()+"\"");
+					out.write("{\"name\":\""+ll.get(i).getName()+"\"");
 					out.write(",\"type\":\""+ll.get(i).getId()+"\"");
 					if(ll.get(i).getLatitude()!=null&&ll.get(i).getLatitude()!=0){
 						out.write(",\"x\":\""+ll.get(i).getLongitude()+"\"");

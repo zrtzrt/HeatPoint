@@ -389,9 +389,9 @@ function getalarm(add,gif){
 function showlocat(){
 		var add = locatJson.location[index];
 		add.index=index;
+		index++;
 		geocodeSearch(add);
 //		add.type=t;
-		index++;
 	}
 function geocodeSearch(add){
 		if(add.index < locatJson.location.length){

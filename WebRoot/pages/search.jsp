@@ -26,7 +26,7 @@
     <div class="form-group">
     <label>开始</label>
                 <div class="input-group date form_date" data-date="" data-date-format="yyyy/MM/dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input id="startDate" class="form-control" size="8" type="text" value="开始时间" readonly>
+                    <input id="startDate" class="form-control" size="7" type="text" value="开始时间" readonly>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
@@ -34,7 +34,7 @@
      <div class="form-group">
     <label>结束</label>
                 <div class="input-group date form_date" data-date="" data-date-format="yyyy/MM/dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input id="endDate" class="form-control" size="8" type="text" value="结束时间" readonly>
+                    <input id="endDate" class="form-control" size="7" type="text" value="结束时间" readonly>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
@@ -212,7 +212,7 @@
 			<div class="modal-body">
 				<div>名称：heatpoint</div>
 				<div>介绍：大型活动采集、分析及可视化系统</div>
-				<div>版本：3.0.1</div>
+				<div>版本：0.3.1</div>
 				<br>
 				<div>作者：张仁童</div>
 				<div>邮箱：519539110@qq.com</div>

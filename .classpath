@@ -25,5 +25,7 @@
 	<classpathentry kind="lib" path="C:/Users/51953_000/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="lib" path="C:/Users/51953_000/.m2/repository/com/zaxxer/HikariCP-java6/2.3.13/HikariCP-java6-2.3.13.jar"/>
 	<classpathentry kind="lib" path="D:/work/webmagic-0.6.1-all/commons-io-1.3.2.jar"/>
+	<classpathentry kind="lib" path="D:/360极速浏览器下载/poi-3.16/ooxml-lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="D:/360极速浏览器下载/poi-3.16/lib/commons-collections4-4.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
