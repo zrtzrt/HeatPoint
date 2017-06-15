@@ -34,11 +34,11 @@ public class LocationDaoImpl implements LocationDao{
 				DBHelper.rs=DBHelper.ps.executeQuery();
 				while(DBHelper.rs.next()){
 					LocationEntity l = new LocationEntity();
-//					l.setId(DBHelper.rs.getInt(1));
+					l.setId(DBHelper.rs.getInt(1));
 					l.setName(DBHelper.rs.getString(2));
 					l.setLongitude(DBHelper.rs.getDouble(3));
 					l.setLatitude(DBHelper.rs.getDouble(4));
-					l.setId(DBHelper.rs.getInt(5));
+					l.setType(DBHelper.rs.getInt(5));
 					ll.add(l);
 				}
 				DBHelper.closeConn();

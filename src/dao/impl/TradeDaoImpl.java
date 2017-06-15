@@ -230,7 +230,9 @@ public class TradeDaoImpl implements TradeDao{
 	int locationExcit(String locat,String detail){
 		int id = -1;
 		String sql="SELECT locatid FROM location WHERE locatname =\""+locat.replaceAll("\"", "'")+
-				"\" OR detail =\""+detail.replaceAll("\"", "'")+"\"";
+				"\"";
+		if(detail!=null)
+			sql = sql+" OR detail =\""+detail.replaceAll("\"", "'")+"\"";
 		Connection con = null;
 		try {
 			con = ds.getConnection();

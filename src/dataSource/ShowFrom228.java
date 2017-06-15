@@ -26,6 +26,7 @@ public class ShowFrom228
 	private Logger logger = Logger.getLogger(this.getClass()); 
 	private ShowDao dao;
 	private HikariDataSource ds;
+	private int task;
 	
 	public ShowFrom228(){
 		ds = new HikariDataSource();
@@ -33,6 +34,7 @@ public class ShowFrom228
 		ds.setUsername(DefaultConfig.user);
 		ds.setPassword(DefaultConfig.password);
 		dao = new ShowDaoImpl(ds);
+		task=1;
 	};
 	//抓取网站的相关配置，包括：编码、抓取间隔、重试次数等
 //    private Site site = Site.me()
@@ -78,11 +80,18 @@ public class ShowFrom228
 		if(type==6)
 			getShow("http://www.228.com.cn/s/tiyusaishi/?j=1&p=",6,1);
 		else 
-		if(type>6)
-			for (int i = 1; i < 7; i++) {
+		if(type>6){
+			task=6;
+			for (int i = 1; i < 7; i++)
 				init(i);
-			}
-		ds.close();
+		}
+		task--;
+		close();
+		}
+	private void close(){
+//		System.out.println(task);
+		if(task==0)
+			ds.close();
 	}
 	
 	public void getShow(String u,int index,int page){

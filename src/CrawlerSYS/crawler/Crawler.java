@@ -28,7 +28,7 @@ public class Crawler {
 	}
 	public Crawler(List<String> url, List<String> xpath) {
 		super();
-		String[] node = {"127.0.0.1:6543"};
+		String[] node = DefaultConfig.node;
 		nc = new MainNodeControler(url,xpath,node);
 	}
 	public Crawler(List<String> url, Map<String,String> xpath) {

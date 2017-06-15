@@ -51,7 +51,7 @@ $(function (){
     	var key = $("#search-input").val();
     	if(key!=null)
     		$.ajax({
-    			url:"servlet/LocationServlet?action=5&key="+key,
+    			url:"servlet/LocationServlet?action=5&key="+key+"&start="+start+"&end="+end,
 				dataType:"text",
 				success:function(res){
 //					alert(res);
@@ -125,7 +125,12 @@ function showStatistics(){
 			}
 			var chart = echarts.init(document.getElementById("statistics-body"));
 			chart.setOption({
-			    tooltip: {},
+			    tooltip: {
+			    	formatter: function (params) {
+			            return '日期: '+new Date().getFullYear()+'年'+(params.value[1]+1)+'月'+params.value[0]+
+			            '日  \n 类型: '+params.seriesName+'  \n 数量: '+params.value[2];
+			        }
+			    },
 			    legend: {
 					left: 'left',
 					data:["展会","演唱会","音乐会","话剧歌剧","舞蹈芭蕾","曲苑杂坛","体育赛事","会议"]
@@ -283,7 +288,7 @@ function back(){
 }
 var myIcon;
 var locatJson="";
-var t=0;
+var t=-1;
 var start="";
 var end="";
 var Overlay=[];
@@ -388,6 +393,8 @@ function getalarm(add,gif){
 }
 function showlocat(){
 		var add = locatJson.location[index];
+		if(typeof(index)=="undefined")
+			index=0;
 		add.index=index;
 		index++;
 		geocodeSearch(add);
@@ -403,7 +410,7 @@ function geocodeSearch(add){
 			setIcon(add.type);
 //		if(!add.x)
 //			marker = geo(add);
-		else
+//		else
 			marker=new BMap.Marker(new BMap.Point(add.x, add.y),
 					{icon:myIcon,title:add.name});
 //				if(add.x&&add.x>0){
@@ -502,7 +509,10 @@ function showWindow(type,ind,InfoJson){
 	echarts.init(document.getElementById("windows-"+type+"-"+ind)).setOption(
 			{
 		tooltip: {
-	        position: 'top'
+	        position: 'top',
+	        formatter: function (params) {
+	            return '日期: ' + params.value[0];
+	        }
 	    },
 	    visualMap: {
 			min: 0,
@@ -596,7 +606,7 @@ str+= "<span class='infosize'>（共"+info.size+"个）</span></h1></div><div cl
 			if(info.show[i].detail)
 				str = str+"<li class=\"list-group-item\"><b>地点:</b>"+info.show[i].locat+"("+info.show[i].detail+")</li>";
 			else str = str+"<li class=\"list-group-item\"><b>地点:</b>"+info.show[i].locat+"</li>";
-			str = str+"<li class=\"list-group-item\">开始时间:"+info.show[i].startDate+"</li>";
+			str = str+"<li class=\"list-group-item\"><b>开始时间:</b>"+info.show[i].startDate+"</li>";
 			if(info.show[i].endDate!="null")
 				str = str+"<li class=\"list-group-item\"><b>结束时间:</b>"+info.show[i].endDate+"</li>";
 			if(info.show[i].MINprice!="null")

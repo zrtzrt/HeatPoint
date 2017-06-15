@@ -283,18 +283,18 @@ e.printStackTrace();logger.error("Exception",e);
 //	    Spider.create(new tradeFromCnena()).addUrl("http://www.cnena.com/showroom/list-htm-fid-1.html").thread(2).run();
 //		new WeatherAlarm().init();
 ////		new tradeFromEShow().init();
-		try {
-			WebCrawler.ignoreSsl();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-e.printStackTrace();logger.error("Exception",e);
-		}
-		new CrawlerServer(6543).start();
-		new AllSiteCrawler().run();
+//		try {
+//			WebCrawler.ignoreSsl();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//e.printStackTrace();logger.error("Exception",e);
+//		}
+//		new CrawlerServer(6543).start();
+//		new AllSiteCrawler().run();
 //		new TradeFromCnena().init();
 //		new TradeFromEShow().init();
 //		new ShowFromDaMai().init(6);
-//		new ShowFrom228().init(6);
+		new ShowFrom228().init(7);
 //		System.out.println("http://www.eshow365.com/zhanhui/Ajax/AjaxSearcherV3.aspx?1=1&tag=0&starttime="
 //					.matches("http://www\\.eshow365\\.com/zhanhui/Ajax/AjaxSearcherV3.+"));
 //		String json = WebCrawler.get("http://www.228.com.cn/s/yanchanghui/?j=1&p=1",null);
@@ -312,7 +312,9 @@ e.printStackTrace();logger.error("Exception",e);
 //			e.printStackTrace();logger.error("Exception",e);
 //		}
 //		new Output("xls","C:\\Users\\51953_000\\Workspaces\\MyEclipse 10\\HeatPoint\\WebRoot\\WEB-INF\\outputFile");
-	
+//		String url = "https://venue.damai.cn/ajax.aspx?_action=Search&keyword=南京";
+//		String json = WebCrawler.get(url,null,null);
+//		System.out.println(json);
 	}
 
 	@Override

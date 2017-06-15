@@ -13,6 +13,7 @@ import CrawlerSYS.crawler.Crawler;
 import CrawlerSYS.entity.CrawlerReturnEntity;
 import CrawlerSYS.node.Dispose;
 import CrawlerSYS.utils.StringHelper;
+import CrawlerSYS.utils.WebCrawler;
 
 import dao.ShowDao;
 import dao.impl.ShowDaoImpl;
@@ -108,6 +109,12 @@ Dispose{
 
 	
 	public void init(int type){
+		try {
+			WebCrawler.ignoreSsl();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+e.printStackTrace();logger.error("Exception",e);
+		}
 		List<String> xpath = new ArrayList<String>();
 		xpath.add("//ul[@id='performList']/li/div/h2/a/@href");
 		xpath.add("//ul[@id='performList']/li/div/h2/a/text()");

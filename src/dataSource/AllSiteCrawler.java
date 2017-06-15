@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import CrawlerSYS.utils.WebCrawler;
+
 public class AllSiteCrawler implements Runnable{
 	private Logger logger = Logger.getLogger(this.getClass()); 
 //	public AutoExecutor(int h,int m,int s){
@@ -38,11 +40,11 @@ public class AllSiteCrawler implements Runnable{
 		endTime = new Date().getTime();
 		System.out.println("ShowFromDaMai已完成，用时"+(endTime-startTime)/1000+"s");
 		logger.info("ShowFromDaMai已完成，用时"+(endTime-startTime)/1000+"s");
-		new ShowFrom228().init(7);
-		endTime = new Date().getTime();
-		System.out.println("ShowFrom228已完成，用时"+(endTime-startTime)/1000+"s");
-		logger.info("ShowFrom228已完成，用时"+(endTime-startTime)/1000+"s");
 		new MeetingFromHDJ().init();
+		endTime = new Date().getTime();
+		System.out.println("MeetingFromHDJ已完成，用时"+(endTime-startTime)/1000+"s");
+		logger.info("ShowFrom228已完成，用时"+(endTime-startTime)/1000+"s");
+		new ShowFrom228().init(7);
 		endTime = new Date().getTime();
 		System.out.println("爬虫已全部完成，用时"+(endTime-startTime)/1000+"s");
 		logger.info("爬虫已全部完成，用时"+(endTime-startTime)/1000+"s");

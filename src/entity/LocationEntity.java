@@ -4,6 +4,7 @@ import CrawlerSYS.utils.StringHelper;
 
 public class LocationEntity {
 	private int id;
+	private int type;
 	private String  name;
 	private String  city;
 	private String  province;
@@ -79,5 +80,11 @@ public class LocationEntity {
 	}
 	public void setProvince(String province) {
 		this.province = province;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 }

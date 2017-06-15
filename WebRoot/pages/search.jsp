@@ -65,25 +65,21 @@
 	<div class="dropdown-menu pull-right">
 	<div class="form-horizontal" role="form">
 	<div class="form-group">
-    <label>展会</label>
+    <label>展会信息</label>
 		<input id="search_showtype_0" type="checkbox" class="showtype" onclick="searchIsClick(0)"/>
 	</div>
+	<div class="divider"></div>
 	 <div class="form-group">
     <label>演唱会</label>
+    &nbsp;&nbsp;
 		<input id="search_showtype_1" type="checkbox" class="showtype" onclick="searchIsClick(1)"/>
-	</div>
-	 <div class="form-group">
-    <label>体育赛事</label>
-		<input id="search_showtype_6" type="checkbox" class="showtype" onclick="searchIsClick(6)"/>
-	</div>
-	 <div class="form-group">
-    <label>天气</label>
-		<input id="search_showtype_8" type="checkbox" class="showtype" onclick="searchIsClick(8)"/>
 	</div>
 			<div class="form-group">
     			<label>音乐会</label>
+    			&nbsp;&nbsp;
 				<input id="search_showtype_2" type="checkbox" class="showtype" onclick="searchIsClick(2)"/>
 			</div>
+			<div class="divider"></div>
 			<div class="form-group">
     			<label>话剧歌剧</label>
 				<input id="search_showtype_3" type="checkbox" class="showtype" onclick="searchIsClick(3)"/>
@@ -96,10 +92,21 @@
     			<label>曲苑杂坛</label>
 				<input id="search_showtype_5" type="checkbox" class="showtype" onclick="searchIsClick(5)"/>
 			</div>
+			<div class="divider"></div>
+	 <div class="form-group">
+    <label>体育赛事</label>
+		<input id="search_showtype_6" type="checkbox" class="showtype" onclick="searchIsClick(6)"/>
+	</div>
+	<div class="divider"></div>
 			<div class="form-group">
-    			<label>会议</label>
+    			<label>会议论坛</label>
 				<input id="search_showtype_7" type="checkbox" class="showtype" onclick="searchIsClick(7)"/>
 			</div>
+			<div class="divider"></div>
+	 <div class="form-group">
+    <label>天气预警</label>
+		<input id="search_showtype_8" type="checkbox" class="showtype" onclick="searchIsClick(8)"/>
+	</div>
 			</div>
 	</div>
 </div>
@@ -161,6 +168,8 @@
 				<button class="btn btn-default"  type="button" onclick="crawler(6)" data-dismiss="modal">体育赛事</button>
 				<button class="btn btn-default"  type="button" onclick="crawler(7)" data-dismiss="modal">会议</button>
 				<button class="btn btn-default"  type="button" onclick="crawler(8)" data-dismiss="modal">天气预警</button>
+				<br>
+				<button class="btn btn-default"  type="button" onclick="crawler(9)" data-dismiss="modal">全部更新</button>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" 

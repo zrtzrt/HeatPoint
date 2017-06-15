@@ -11,14 +11,11 @@ import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -26,6 +23,7 @@ import dataSource.AllSiteCrawler;
 import dataSource.MeetingFromHDJ;
 import dataSource.ShowFrom228;
 import dataSource.ShowFromDaMai;
+import dataSource.TradeFromCnena;
 import dataSource.TradeFromEShow;
 import dataSource.WeatherAlarm;
 
@@ -102,6 +100,7 @@ public class CrawlerServlet extends HttpServlet {
 //				Spider.create(new tradeFromHZH()).addUrl("http://www.haozhanhui.com/zhanlanjihua/").thread(2).run();
 //			    Spider.create(new tradeFromCnena()).addUrl("http://www.cnena.com/showroom/list-htm-fid-1.html").thread(2).run();
 				new TradeFromEShow().init();
+				new TradeFromCnena().init();
 			}
 			else if(showtype>0&&showtype<7){
 				new ShowFromDaMai().init(showtype);
@@ -111,6 +110,8 @@ public class CrawlerServlet extends HttpServlet {
 				new MeetingFromHDJ().init();
 			else if(showtype==8)
 				new WeatherAlarm().init();
+			else
+				new AllSiteCrawler().run();
 		}
 	}
 
