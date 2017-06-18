@@ -4,7 +4,7 @@
 
 ![主视图](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E4%B8%BB%E8%A7%86%E5%9B%BE.JPG)
 ![统计1](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE1.JPG)
-![统计2](https://github.com/zrtzrt/HeatPoint/commits/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE2.JPG)
+![统计2](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE2.JPG)
 ![统计3](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE3.JPG)
 
 ### 使用方式
@@ -23,5 +23,11 @@
 
 ## 感谢
 
-#### [CrawlerSYS](https://github.com/zrtzrt/CrawlerSYS)、 [echarts](https://github.com/ecomfe/echarts)、[poi](https://github.com/apache/poi)、  [百度地图](http://map.baidu.com/)
+  [CrawlerSYS](https://github.com/zrtzrt/CrawlerSYS)、 [echarts](https://github.com/ecomfe/echarts)、[poi](https://github.com/apache/poi)、  [百度地图](http://map.baidu.com/)
 
+## 协议
+
+请遵守Apache License 2.0的使用规范。  
+本项目未获得第三方网站数据使用授权，仅供个人参考、学习、测试使用。  
+如需进行商业使用请更改百度AK，并获得所有第三方数据源网站授权。  
+如有疑问请联系519539110@qq.com。
