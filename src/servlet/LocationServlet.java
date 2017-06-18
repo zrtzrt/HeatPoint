@@ -20,6 +20,7 @@ import CrawlerSYS.utils.StringHelper;
 
 import dao.LocationDao;
 import dao.impl.LocationDaoImpl;
+import dataSource.AirLineFromVariflight;
 import entity.LocationEntity;
 import entity.ShowEntity;
 import entity.TradeEntity;
@@ -187,6 +188,13 @@ e.printStackTrace();logger.error("Exception",e);
 				out.flush();
 				out.close();
 			}
+		else if(actionSign==7){
+			String ap = request.getParameter("ap");
+			PrintWriter out = response.getWriter();
+			out.write(AirLineFromVariflight.getAirLine(ap,startDate));
+			out.flush();
+			out.close();
+		}
 	}
 
 	/**

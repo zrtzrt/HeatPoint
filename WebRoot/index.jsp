@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="${pageContext.request.contextPath}/content/echarts-gl.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/content/china.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/content/script.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/content/airportGPS.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ALeBoFSYVxY6lExIZgptQGGK7skwRE8M"></script>
   </head>
   

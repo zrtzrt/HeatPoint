@@ -318,8 +318,10 @@ function getLocat(type,p){
 	doing = true;
 	getTime();
 	index=0;
-	var url="servlet/LocationServlet?action=0&type="+type+"&start="+start+"&end="+end;
-	if(p) url+="&p="+p;
+	if(type<9){
+		var url="servlet/LocationServlet?action=0&type="+type+"&start="+start+"&end="+end;
+		if(p) 
+			url+="&p="+p;
 				$.ajax({
 					url:url,
 					async: false,
@@ -341,6 +343,33 @@ function getLocat(type,p){
 						doing = false;
 					}
 				});
+	}else {
+		var ind = 0;
+		for(var i in geoCoordMap){
+			if(geoCoordMap[i][4]=="CN"){
+				showAirport(i,geoCoordMap[i],ind);
+				ind++;
+			}
+		}
+	}
+}
+function showAirport(name,add,ind){
+	var marker=new BMap.Marker(new BMap.Point(add[0], add[1]),
+			{icon:new BMap.Icon("img/airport.png", new BMap.Size(32,37)),title:name});
+	Overlay[9][ind]=marker;
+	map.addOverlay(marker);
+	marker.setAnimation(BMAP_ANIMATION_DROP);
+	marker.addEventListener("click",function(e){
+		map.setCenter(marker.getPosition());
+		this.setAnimation(BMAP_ANIMATION_BOUNCE);
+//		$.ajax({
+//			url:"",
+//			dataType:"text",
+//			success:function(res){
+//				drawLine(res);
+//			}
+//		});
+	});
 }
 function setIcon(type){
 	var size= new BMap.Size(32,37);
