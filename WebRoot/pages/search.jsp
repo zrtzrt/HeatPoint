@@ -162,6 +162,10 @@
 				</h4>
 			</div>
 			<div class="modal-body">
+				<div class="input-group">
+      				<div class="input-group-addon">请输入管理员密码</div>
+     			 	<input type="password" class="form-control" id="crawlerPassword">
+    			</div>
 				<div>请选择要更新的事件类型</div>
 				<button class="btn btn-default"  type="button" onclick="crawler(0)" data-dismiss="modal">展会</button>
 				<button class="btn btn-default"  type="button" onclick="crawler(1)" data-dismiss="modal">演唱会</button>
@@ -173,7 +177,7 @@
 				<button class="btn btn-default"  type="button" onclick="crawler(7)" data-dismiss="modal">会议</button>
 				<button class="btn btn-default"  type="button" onclick="crawler(8)" data-dismiss="modal">天气预警</button>
 				<br>
-				<button class="btn btn-default"  type="button" onclick="crawler(9)" data-dismiss="modal">全部更新</button>
+				<button class="btn btn-danger"  type="button" onclick="crawler(9)" data-dismiss="modal">全部更新</button>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" 

@@ -142,7 +142,8 @@ public class TradeEntity {
 	public String toJson() {
 		return "{\"name\":\"" + name + "\", \"en_name\":\""
 				+ en_name + "\", \"picture\":\"" + picture + "\", \"startDate\":\"" + StringHelper.sqlDate(startDate)
-				+ "\", \"endDate\":\"" + StringHelper.sqlDate(endDate) + "\", \"locat\":\"" + locat.getName() + "\", \"detail\":\"" + locat.getDetail()
+				+ "\", \"endDate\":\"" + StringHelper.sqlDate(endDate) + "\", \"locat\":\"" + locat.getName() + "\", \"detail\":\""
+				+ locat.getDetail() + "\", \"industry\"：\""+ industry
 				+ "\", \"host\":\"" + host + "\", \"area\":\"" + area + "\", \"times\":\"" + times + "\", \"frequency\":\""
 				+ frequency + "\", \"used\":\"" + used + "\", \"urls\":" + toUrl() + ",\"showtype\":0}";
 	}

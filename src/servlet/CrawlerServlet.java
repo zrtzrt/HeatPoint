@@ -94,24 +94,35 @@ public class CrawlerServlet extends HttpServlet {
 			out.close();
 		}else if(actionSign==1){
 			int showtype=Integer.parseInt(request.getParameter("type"));
-			if(showtype==0){
+			String pw = request.getParameter("pw");
+			PrintWriter out = response.getWriter();  
+			if(pw.equals("crawlerAdmin")){
+				out.write("true");
+				out.flush();
+				out.close();
+				if(showtype==0){
 //				Spider.create(new tradeFromEShow()).addUrl("http://www.eshow365.com/ZhanHui/Ajax/AjaxSearcherV3.aspx?1=1&tag=0&starttime="
 //						+StringHelper.getStringTime("yyyy/MM/dd")+"&page=1").thread(3).run();
 //				Spider.create(new tradeFromHZH()).addUrl("http://www.haozhanhui.com/zhanlanjihua/").thread(2).run();
 //			    Spider.create(new tradeFromCnena()).addUrl("http://www.cnena.com/showroom/list-htm-fid-1.html").thread(2).run();
-				new TradeFromEShow().init();
-				new TradeFromCnena().init();
+					new TradeFromEShow().init();
+					new TradeFromCnena().init();
+				}
+				else if(showtype>0&&showtype<7){
+					new ShowFromDaMai().init(showtype);
+					new ShowFrom228().init(showtype);
+				}
+				else if(showtype==7)
+					new MeetingFromHDJ().init();
+				else if(showtype==8)
+					new WeatherAlarm().init();
+				else
+					new AllSiteCrawler().run();
+			}else{
+				out.write("false");
+				out.flush();
+				out.close();
 			}
-			else if(showtype>0&&showtype<7){
-				new ShowFromDaMai().init(showtype);
-				new ShowFrom228().init(showtype);
-			}
-			else if(showtype==7)
-				new MeetingFromHDJ().init();
-			else if(showtype==8)
-				new WeatherAlarm().init();
-			else
-				new AllSiteCrawler().run();
 		}
 	}
 

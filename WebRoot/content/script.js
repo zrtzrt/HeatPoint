@@ -596,6 +596,8 @@ str+= "<span class='infosize'>（共"+info.size+"个）</span></h1></div><div cl
 			str = str+"<ul class=\"list-group\"><li class=\"list-group-item\"><b>名称:</b>"+info.show[i].name+"</li>";
 			if(info.show[i].en_name!="null")
 				str = str+"<li class=\"list-group-item\"><b>英文名称:</b>"+info.show[i].en_name+"</li>";
+			if(info.show[i].industry!="null")
+				str = str+"<li class=\"list-group-item\"><b>所属行业:</b>"+info.show[i].industry+"</li>";
 			if(info.show[i].detail!="null")
 				str = str+"<li class=\"list-group-item\"><b>地点:</b>"+info.show[i].locat+"("+info.show[i].detail+")</li>";
 			else str = str+"<li class=\"list-group-item\"><b>地点:</b>"+info.show[i].locat+"</li>";
@@ -679,8 +681,15 @@ function search(id,state){
 }
 
 function crawler(type){
+	if($("#crawlerPassword").val){
 	$.ajax({
-		url:"servlet/CrawlerServlet?action=1&type="+type
+		url:"servlet/CrawlerServlet?action=1&type="+type+"&pw="+$("#crawlerPassword").val,
+		success:function(res){
+			if(res=="true")
+				alert("你选择的类型正在爬取，请耐心等待，稍后刷新查看即可，具体内容请查看服务器日志");
+			if(res=="false")
+				alert("密码错误，请咨询管理员后重试");
+		}
 	});
-	alert("你选择的类型正在爬取，请耐心等待，稍后刷新查看即可，具体内容请查看服务器日志");
+	}else alert("密码不可为空，请咨询管理员后重试");
 }
