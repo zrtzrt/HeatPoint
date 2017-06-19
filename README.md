@@ -1,6 +1,6 @@
 # HeatPoint
 
-热点信息收集、查询、分析及可视化系统 [在线演示](http://cloudforwork.cn/heatpoint)
+热点信息收集、查询、分析及可视化系统 [在线演示](http://cloudforwork.cn/heatpoint) [设计文档](https://github.com/zrtzrt/HeatPoint/raw/master/docs/%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0%E5%92%8C%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E8%AF%B4%E6%98%8E%E4%B9%A6.docx)
 
 ![主视图](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E4%B8%BB%E8%A7%86%E5%9B%BE.JPG)
 ![统计1](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE1.JPG)
