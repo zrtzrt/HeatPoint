@@ -345,6 +345,7 @@ function getLocat(type,p){
 				});
 	}else {
 		var ind = 0;
+		Overlay[9]=[];
 		for(var i in geoCoordMap){
 			if(geoCoordMap[i][4]=="CN"){
 				showAirport(i,geoCoordMap[i],ind);

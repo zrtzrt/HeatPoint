@@ -1,7 +1,7 @@
 package CrawlerSYS.crawler;
 
 public class DefaultConfig {
-	public static final String dbip = "119.29.223.149:3306/heatpoint";
+	public static final String dbip = "127.0.0.1:3306/heatpoint";
 	public static final String dbArgs = "useUnicode=true&characterEncoding=UTF-8";
 	public static final String user = "root";
 	public static final String password = "FuvgiUwrXULC";

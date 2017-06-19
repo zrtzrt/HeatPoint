@@ -107,6 +107,7 @@
     <label>天气预警</label>
 		<input id="search_showtype_8" type="checkbox" class="showtype" onclick="searchIsClick(8)"/>
 	</div>
+	<div class="divider"></div>
 	<div class="form-group">
     <label>航班信息</label>
 		<input id="search_showtype_9" type="checkbox" class="showtype" onclick="searchIsClick(9)"/>
