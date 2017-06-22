@@ -6,6 +6,7 @@
 ![统计1](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE1.JPG)
 ![统计2](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE2.JPG)
 ![统计3](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE3.JPG)
+![航班](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E8%88%AA%E7%8F%AD%E8%A7%86%E5%9B%BE.JPG)
 
 ### 使用方式
 
