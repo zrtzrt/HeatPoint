@@ -189,9 +189,13 @@ e.printStackTrace();logger.error("Exception",e);
 				out.close();
 			}
 		else if(actionSign==7){
-			String ap = request.getParameter("ap");
+			String arr = request.getParameter("arr");
+			String dep = request.getParameter("dep");
 			PrintWriter out = response.getWriter();
-			out.write(AirLineFromVariflight.getAirLine(ap,startDate));
+			if(dep!=null)
+				out.write(AirLineFromVariflight.getDetail(dep,arr,startDate));
+			else
+				out.write(AirLineFromVariflight.getAirLine(arr,startDate));
 			out.flush();
 			out.close();
 		}

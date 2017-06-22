@@ -22,7 +22,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/content/styles.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath}/content/echarts.min.js"></script>
+	<script src="//cdn.bootcss.com/echarts/3.6.2/echarts.min.js"></script>
+	<script src="//cdn.bootcss.com/echarts/3.6.2/extension/bmap.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/content/echarts-gl.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/content/china.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/content/script.js"></script>

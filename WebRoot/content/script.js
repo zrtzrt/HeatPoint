@@ -186,7 +186,7 @@ function showStatistics(){
 		}
 	});
 }
-
+var typeName = ["展会","演唱会","音乐会","话剧歌剧","舞蹈芭蕾","曲苑杂坛","体育赛事","会议"];
 function showsmallmap(data){
 //	alert(data);
 	var chart = echarts.init(document.getElementById("smallmap"));
@@ -197,7 +197,7 @@ function showsmallmap(data){
 	    },
 		legend: {
 			left: 'left',
-			data:["展会","演唱会","音乐会","话剧歌剧","舞蹈芭蕾","曲苑杂坛","体育赛事","会议"]
+			data: typeName
 		},
 	    toolbox: {
 	        show: true,
@@ -265,9 +265,19 @@ function getProvince(){
 //	}
 //}
 var map;
+var myChart;
 function showMap(){
-	map = new BMap.Map("allmap",{enableMapClick:false});           // 创建Map实例
-	map.centerAndZoom("中国",5);
+	myChart = echarts.init(document.getElementById("allmap"));
+	myChart.setOption({
+			bmap: {
+		        center: [104.114129, 37.550339],
+		        zoom: 5,
+		        roam: true
+		    }
+	});
+	map = myChart.getModel().getComponent('bmap').getBMap();
+//	map = new BMap.Map("allmap",{enableMapClick:false});           // 创建Map实例
+//	map.centerAndZoom("中国",5);
 	map.enableScrollWheelZoom();    
 	//map.addControl(new BMap.ScaleControl());
 	var geolocation = new BMap.Geolocation();
@@ -281,6 +291,19 @@ function showMap(){
 		}       
 	},{enableHighAccuracy: true});
   	map.setMapStyle({style:'midnight'});
+  	myChart.on('click', function (params) {
+  		var line = params.data;
+//  		alert(JSON.stringify(line));
+  		$.ajax({
+			url:"servlet/LocationServlet?action=7&dep="+getAirCode(line.fromName)+"&arr="+getAirCode(line.toName)+"&start="+start,
+			dataType:"text",
+			success:function(res){
+//				alert(res);
+//				eval("var airplant="+res+";");
+				showAirDetail(line.fromName,line.toName,eval(res));
+			}
+  		});
+  	});
 }
 function back(){
 	map.setCenter("中国");
@@ -335,12 +358,13 @@ function getLocat(type,p){
 						if(type<8){
 							for(var i = 0;i<locatJson.location.length;i++)
 								locatJson.location[i].type=type;
+//							showScatter();
 							setIcon(type);
 							showlocat();
 						}else {
 							weatheralarm();
 						}
-						doing = false;
+//						doing = false;
 					}
 				});
 	}else {
@@ -354,22 +378,135 @@ function getLocat(type,p){
 		}
 	}
 }
+//var series = [{
+////	name: typeName[0],
+//    type: 'effectScatter',
+//    coordinateSystem: 'bmap',
+//    hoverAnimation: true,
+//    itemStyle: {
+//        normal: {
+////            color: 'purple',
+//            shadowBlur: 10,
+//            shadowColor: '#333'
+//        }
+//    }
+//}];
+
+//function showScatter(){
+//	series[0].name=typeName[locatJson.location[0].type];
+//	series[0].data=convertData();
+//	series[0].
+//	myChart.setOption({
+//		series : series
+//	});
+//}
+//function convertData(){
+//	var data;
+//	for(var i in locatJson.location){
+//		data[i].name = locatJson.location[i].name;
+//		data[i].value = [locatJson.location[i].x,locatJson.location[i].y,locatJson.location[i].hot];
+//	}
+//	return data;
+//}
 function showAirport(name,add,ind){
+	var myIcon = new BMap.Icon("img/airport.png", new BMap.Size(32,37));
+	myIcon.setAnchor(new BMap.Size(16,37));
 	var marker=new BMap.Marker(new BMap.Point(add[0], add[1]),
-			{icon:new BMap.Icon("img/airport.png", new BMap.Size(32,37)),title:name});
+			{icon:myIcon,title:add[2]});
 	Overlay[9][ind]=marker;
 	map.addOverlay(marker);
 	marker.setAnimation(BMAP_ANIMATION_DROP);
 	marker.addEventListener("click",function(e){
+		for(var i in Overlay[9]){
+			Overlay[9][i].setAnimation(null);
+		}
 		map.setCenter(marker.getPosition());
 		this.setAnimation(BMAP_ANIMATION_BOUNCE);
-//		$.ajax({
-//			url:"",
-//			dataType:"text",
-//			success:function(res){
-//				drawLine(res);
-//			}
-//		});
+		getTime();
+		$.ajax({
+			url:"servlet/LocationServlet?action=7&arr="+name+"&start="+start,
+			dataType:"text",
+			success:function(res){
+//				alert(res);
+				drawLine(JSON.parse(res));
+			}
+		});
+	});
+}
+function getAirPort(id){
+	for(var i in geoCoordMap){
+		if(i==id){
+			return geoCoordMap[i];
+		}
+	}
+}
+function getAirCode(name){
+	for(var i in geoCoordMap){
+		if(geoCoordMap[i][2]==name){
+			return i;
+		}
+	}
+}
+function drawLine(airline){
+	var data = [];
+	for (var i = 0; i < airline.length; i++) {
+		var fromPort = getAirPort(airline[i][0]);
+		var toPort = getAirPort(airline[i][1]);
+//		alert(airline[i][0]+fromPort);
+		var fromCoord = [fromPort[0],fromPort[1]];
+		var toCoord = [toPort[0],toPort[1]];
+		data.push({
+			fromName: fromPort[2],
+            toName: toPort[2],
+            coords: [fromCoord, toCoord]
+		});
+	}
+	var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+	myChart.setOption({
+		tooltip : {position: 'top'},
+		series : [{
+	        type: 'lines',
+	        coordinateSystem: 'bmap',
+	        zlevel: 1,
+	        effect: {
+	            show: true,
+	            period: 6,
+	            trailLength: 0.7,
+	            color: '#fff',
+	            symbolSize: 3
+	        },
+	        lineStyle: {
+	            normal: {
+	                color: '#a6c84c',
+	                width: 0,
+	                curveness: 0.2
+	            }
+	        },
+	        data: data
+	    },
+	    {
+	        type: 'lines',
+	        coordinateSystem: 'bmap',
+	        zlevel: 2,
+	        symbol: ['none', 'arrow'],
+	        symbolSize: 10,
+	        effect: {
+	            show: true,
+	            period: 6,
+	            trailLength: 0,
+	            symbol: planePath,
+	            symbolSize: 15
+	        },
+	        lineStyle: {
+	            normal: {
+	                color: '#a6c84c',
+	                width: 1,
+	                opacity: 1,
+	                curveness: 0.2
+	            }
+	        },
+	        data: data
+	    }]
 	});
 }
 function setIcon(type){
@@ -580,7 +717,30 @@ function toData(json){
 	}
 	return data;
 }
-
+function showAirDetail(dep,arr,res){
+//	res=res.data;
+//	alert(res[0][2]);
+	var str = "<div class=\"panel panel-info\"><div id=\"info-ph\" class=\"panel-heading\"><h1 class=\"panel-title\">"+start+"从"+dep+"到"+arr+"的所有航班";
+	str += "</h1></div><div class=\"panel-body\">";
+	for(var i in res) {
+//		if($("#airplant-"+res[i][2]).exist()){
+//			var str = "<li class=\"list-group-item\"><b>航班代码:</b>"+res[i][0]+"</li>";
+//			if(res[i][1]!="")
+//				str += "<li class=\"list-group-item\"><b>航班代码:</b>"+res[i][1]+"</li>";
+//			$("#airplant-"+res[i][2]).appendChild(str);
+//		}else{
+			str = str+"<div class=\"panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\">"
+				+res[i][2]+"</h3></div><div class=\"panel-body\"><ul id=\"airplant-"+res[i][2]+
+				"\" class=\"list-group\"><li class=\"list-group-item\"><img src=\"https://res.tianxun.com/flight/images/airline_large/"
+				+res[i][0].substring(0,2)+".png\"><span class=\"aircode\">"+res[i][0]+"</span></li>";
+			if(res[i][1]!="")
+				str += "<li class=\"list-group-item\"><img src=\"https://res.tianxun.com/flight/images/airline_large/"
+				+res[i][1].substring(0,2)+".png\"><span class=\"aircode\">"+res[i][1]+"</span></li>";
+			str += "</ul></div></div>";
+//		}
+	}
+	document.getElementById("info").innerHTML=str+"</div></div>";
+}
 function showInfo(name,info){
 var str = "<div class=\"panel panel-info\"><div id=\"info-ph\" class=\"panel-heading\"><h1 class=\"panel-title\">"+name;
 str+= "<span class='infosize'>（共"+info.size+"个）</span></h1></div><div class=\"panel-body\">";
@@ -661,10 +821,15 @@ str+= "<span class='infosize'>（共"+info.size+"个）</span></h1></div><div cl
 }
 
 function deletePoint(type){
-	if(Overlay[type]!=null)
+	if(Overlay[type]!=null){
 		for (var i = 0; i < Overlay[type].length+1; i++){
 			map.removeOverlay(Overlay[type][i]);
 		}
+		if(type==9){
+			$(".showtype").bootstrapSwitch('state', false);
+			showMap();
+		}
+	}
 }
 
 function searchIsClick(type){

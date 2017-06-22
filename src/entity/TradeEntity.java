@@ -25,7 +25,7 @@ public class TradeEntity {
 	public TradeEntity(int id, String name, String en_name, String picture,
 			Date startDate, Date endDate, LocationEntity locat,
 			String industry, String host, int area, int times,
-			String frequency, String used, List<String> url) {
+			String frequency, String used, List<String> url,int  hot) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -41,6 +41,7 @@ public class TradeEntity {
 		this.frequency = frequency;
 		this.used = used;
 		this.url = url;
+		this.hot = hot;
 	}
 	public TradeEntity() {
 		// TODO Auto-generated constructor stub
@@ -143,7 +144,7 @@ public class TradeEntity {
 		return "{\"name\":\"" + name + "\", \"en_name\":\""
 				+ en_name + "\", \"picture\":\"" + picture + "\", \"startDate\":\"" + StringHelper.sqlDate(startDate)
 				+ "\", \"endDate\":\"" + StringHelper.sqlDate(endDate) + "\", \"locat\":\"" + locat.getName() + "\", \"detail\":\""
-				+ locat.getDetail() + "\", \"industry\"：\""+ industry
+				+ locat.getDetail() + "\", \"industry\":\""+ industry + "\", \"hot\":\"" + hot
 				+ "\", \"host\":\"" + host + "\", \"area\":\"" + area + "\", \"times\":\"" + times + "\", \"frequency\":\""
 				+ frequency + "\", \"used\":\"" + used + "\", \"urls\":" + toUrl() + ",\"showtype\":0}";
 	}

@@ -6,7 +6,7 @@ body,div{margin:0;border:0;padding:0;}
 	width:70%;height:90%; float:left; overflow:hidden;
 }
 #allmap{
-	height:100%;
+	height:100%;padding:0;
 }
 #info{
 	width:30%;height:85%;float:right;overflow-y:auto;
@@ -34,4 +34,7 @@ li{
 }
 .dropdown-menu{
 	padding-left: 15;
+}
+.aircode{
+	font-size: 30px;
 }

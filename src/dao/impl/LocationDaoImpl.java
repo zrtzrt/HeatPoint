@@ -391,7 +391,7 @@ e.printStackTrace();logger.error("Exception",e);
 		List<TradeEntity> ol = new ArrayList<TradeEntity>();
 		LinkedHashSet<String> nl = new LinkedHashSet<String>();
 		String sql = null;
-			sql="SELECT name,en_name,picture,startDate,endDate,locatname,industry,host,area,times,frequency,used,url,detail FROM trade WHERE locatid = "
+			sql="SELECT name,en_name,picture,startDate,endDate,locatname,industry,host,area,times,frequency,used,url,detail,hot FROM trade WHERE locatid = "
 					+id+" AND  startdate BETWEEN '"+StringHelper.sqlDate(startDate)+"' and '"+StringHelper.sqlDate(endDate)+"'";
 			try {
 				DBHelper.ps=DBHelper.getConn().prepareStatement(sql);
@@ -408,7 +408,7 @@ e.printStackTrace();logger.error("Exception",e);
 							DBHelper.rs.getString(7),DBHelper.rs.getString(8),
 							DBHelper.rs.getInt(9),DBHelper.rs.getInt(10),
 							DBHelper.rs.getString(11),DBHelper.rs.getString(12),
-							ul);
+							ul,DBHelper.rs.getInt(15));
 						ol.add(t);
 					}else{
 						for (int i = 0; i < ol.size(); i++) {
