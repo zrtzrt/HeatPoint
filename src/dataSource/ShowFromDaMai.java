@@ -213,7 +213,7 @@ e.printStackTrace();logger.error("Exception",e);
 		int last = StringHelper.toInt(back.getRes().get(7).get(0));
 		String page = back.getUrl().split("=", 3)[2];
 		if(page.equals("1")){
-			System.out.println("page=1,new url="+last);
+//			System.out.println("page=1,new url="+last);
 			for (int j = 2; j < last+1; j++) {
 				back.getLink().add(back.getUrl().substring(0, back.getUrl().length()-page.length())+j);
 			}

@@ -409,6 +409,7 @@ function getLocat(type,p){
 //	return data;
 //}
 function showAirport(name,add,ind){
+	$(".showtype").bootstrapSwitch('state', false);
 	var myIcon = new BMap.Icon("img/airport.png", new BMap.Size(32,37));
 	myIcon.setAnchor(new BMap.Size(16,37));
 	var marker=new BMap.Marker(new BMap.Point(add[0], add[1]),
@@ -827,6 +828,7 @@ function deletePoint(type){
 		}
 		if(type==9){
 			$(".showtype").bootstrapSwitch('state', false);
+			myChart.dispose();
 			showMap();
 		}
 	}
