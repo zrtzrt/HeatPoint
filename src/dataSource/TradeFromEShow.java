@@ -284,27 +284,33 @@ e.printStackTrace();logger.error("Exception",e);
 //	    Spider.create(new tradeFromCnena()).addUrl("http://www.cnena.com/showroom/list-htm-fid-1.html").thread(2).run();
 //		new WeatherAlarm().init();
 ////		new tradeFromEShow().init();
+		
 		try {
 			WebCrawler.ignoreSsl();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 e.printStackTrace();logger.error("Exception",e);
 		}
+		
 		new CrawlerServer(6545).start();
-		long startTime ,endTime;
-		System.out.println("爬虫已启动");
-		startTime = new Date().getTime();
-//		new AllSiteCrawler().run();
-//		new TradeFromCnena().init();
+//		long startTime ,endTime;
+//		System.out.println("爬虫已启动");
+//		startTime = new Date().getTime();
+		new TradeFromCnena().init();
 //		new TradeFromEShow().init();
-		new ShowFromDaMai().init(7);
-		endTime = new Date().getTime();
-		System.out.println("ShowFromDaMai已完成，用时"+(endTime-startTime)/1000+"s");
+//		new ShowFromDaMai().init(7);
 //		new ShowFrom228().init(7);
+//		new MeetingFromHDJ().init();
+//		endTime = new Date().getTime();
+//		System.out.println("ShowFromDaMai已完成，用时"+(endTime-startTime)/1000+"s");
+		
+//		new AllSiteCrawler().run();
+		
+//		System.out.println(StringHelper.similarity("'岳来越快乐'2017岳云鹏相声专场—太原站", "'岳来越快乐'2017岳云鹏相声专场—成都站"));
 //		System.out.println("http://www.eshow365.com/zhanhui/Ajax/AjaxSearcherV3.aspx?1=1&tag=0&starttime="
 //					.matches("http://www\\.eshow365\\.com/zhanhui/Ajax/AjaxSearcherV3.+"));
 //		String json = WebCrawler.get("http://www.228.com.cn/s/yanchanghui/?j=1&p=1",null);
-//		System.out.println(json);
+
 //		System.out.println("a.b  c ".replaceAll(" ", ""));
 //		String s = "<script type='text/javascript'>aaaa</SCript>bbbbbbbbb<SCRIPT type='text/javascript' />ccccc<SCRIPT type='text/javascript' >mm</SCRIPT>";  
 //        s = s.replaceAll("(?i)(<SCRIPT)[\\s\\S]*?((</SCRIPT>)|(/>))", "");//忽略大小写的正则  

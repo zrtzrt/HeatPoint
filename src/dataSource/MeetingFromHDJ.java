@@ -25,17 +25,24 @@ public class MeetingFromHDJ implements Dispose {
 	private Logger logger = Logger.getLogger(this.getClass());  
 	public void init(){
 		List<String> xpathd = new ArrayList<String>();
+		//html/body/div[2]/div/div[2]/div[1]/div[1]/div/h3/a
 		xpathd.add("//div[@class='all_events']/div/div/a/@href");
 		xpathd.add("//div[@class='all_events']/div/div/p[2]/span[2]/text()");
 		xpathd.add("//div[@class='pagination']/ul/li/a/text()");
 		xpathd.add("//div[@class='pagination']/ul/li/a/@href");
 		List<String> xpath = new ArrayList<String>();
-		xpath.add("//h1[@class='media-heading']/a/text()");
-		xpath.add("//div[@class='media-left']/a/img/@src");
-		xpath.add("//div[@class='all_info']/span/text()");
-		xpath.add("//div[@class='all_info']/span[2]/a/text()");
-		xpath.add("//tbody/tr[@class='t_body']/@data-price");
+//		xpath.add("//h1[@class='media-heading']/a/text()");
+//		xpath.add("//div[@class='media-left']/a/img/@src");
+//		xpath.add("//div[@class='all_info']/span/text()");
+//		xpath.add("//div[@class='all_info']/span[2]/a/text()");
+//		xpath.add("//tbody/tr[@class='t_body']/@data-price");
 //		xpath.add("//div[@class='new_content']/p[2]/text()");
+		
+		xpath.add("//h1[@class='event_name']/a/text()");
+		xpath.add("//table[@class='event_infomation']/tbody/tr/td[1]/a/img/@src");
+		xpath.add("//table[@class='event_infomation']/tbody/tr/td[2]/p/text()");
+		xpath.add("//table[@class='event_infomation']/tbody/tr/td[2]/p[2]/a/text()");
+		xpath.add("//td[@class='price']/text()");
 		List<String> url = new ArrayList<String>();
 		for (int i = new Date().getMonth()+1; i < 13; i++) {
 			if(i>9)
@@ -82,8 +89,8 @@ e.printStackTrace();logger.error("Exception",e);
 			}
 			show.setLocat(locat);
 			if(back.getRes().get(4).size()>0){
-				show.setMINprice(StringHelper.toInt(back.getRes().get(4).get(0)));
-				show.setMAXprice(StringHelper.toInt(back.getRes().get(4).get(back.getRes().get(4).size()-1)));
+				show.setMINprice(StringHelper.toInt(back.getRes().get(4).get(0).split("原价：", 2)[0]));
+				show.setMAXprice(StringHelper.toInt(back.getRes().get(4).get(back.getRes().get(4).size()-1).split("原价：", 2)[0]));
 			}
 			show.setShowtype(7);
 //			show.setInfo(back.getRes().get(5).get(0).replace('\"', '\'').trim().replaceAll("\\u00A0",""));

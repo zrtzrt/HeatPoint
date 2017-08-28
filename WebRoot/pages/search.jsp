@@ -16,7 +16,7 @@
    <div class="form-group">
     <label class="sr-only">search</label>
     <div class="input-group" id="search-in">
-      <input type="text" id="search-input" class="form-control" placeholder="Search for...">
+      <input type="text" id="search-input" class="form-control" placeholder="请输入要搜索的关键词">
       <span class="input-group-btn">
         <button id="search-btn" class="btn btn-default" type="button">搜索</button>
       </span>
@@ -68,6 +68,10 @@
     <label>展会信息</label>
 		<input id="search_showtype_0" type="checkbox" class="showtype" onclick="searchIsClick(0)"/>
 	</div>
+	<div class="form-group">
+    			<label>会议论坛</label>
+				<input id="search_showtype_7" type="checkbox" class="showtype" onclick="searchIsClick(7)"/>
+			</div>
 	<div class="divider"></div>
 	 <div class="form-group">
     <label>演唱会</label>
@@ -97,15 +101,22 @@
     <label>体育赛事</label>
 		<input id="search_showtype_6" type="checkbox" class="showtype" onclick="searchIsClick(6)"/>
 	</div>
-	<div class="divider"></div>
-			<div class="form-group">
-    			<label>会议论坛</label>
-				<input id="search_showtype_7" type="checkbox" class="showtype" onclick="searchIsClick(7)"/>
-			</div>
 			<div class="divider"></div>
 	 <div class="form-group">
     <label>天气预警</label>
 		<input id="search_showtype_8" type="checkbox" class="showtype" onclick="searchIsClick(8)"/>
+	</div>
+	<div class="form-group">
+    <label>地震信息</label>
+		<input id="search_showtype_10" type="checkbox" class="showtype" onclick="searchIsClick(10)"/>
+	</div>
+	<div class="form-group">
+    <label>台风预警</label>
+		<input id="search_showtype_11" type="checkbox" class="showtype" onclick="searchIsClick(11)"/>
+	</div>
+	<div class="form-group">
+	<label>卫星云图</label>
+		<input id="search_showtype_12" type="checkbox" class="showtype" onclick="searchIsClick(12)"/>
 	</div>
 	<div class="divider"></div>
 	<div class="form-group">
@@ -125,6 +136,8 @@
 		<span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu pull-right">
+		<li><a data-toggle="modal" data-target="#changemap">更改地图</a></li>
+		<li class="divider"></li>
 		<li><a data-toggle="modal" data-target="#setting">爬虫配置</a></li>
 		<li class="divider"></li>
 		<li><a data-toggle="modal" data-target="#download">下载数据</a></li>
@@ -132,6 +145,41 @@
 		<li><a data-toggle="modal" data-target="#about">关于</a></li>
 	</ul></div></div>
 	</form>
+
+<div class="modal fade" id="changemap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog  modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" 
+						aria-hidden="true">×
+				</button>
+				<h4 class="modal-title">
+					更改地图
+				</h4>
+			</div>
+			<div class="modal-body">
+				<button class="btn btn-default"  type="button" onclick="changeMap('SATELLITE')" data-dismiss="modal">卫星地图</button>
+				<button class="btn btn-default"  type="button" onclick="changeMap('HYBRID')" data-dismiss="modal">卫星混合</button>
+				<br>
+				<br>
+				<button class="btn btn-info"  type="button" onclick="changeMap('light')" data-dismiss="modal">清新蓝风格</button>
+				<button class="btn btn-danger"  type="button" onclick="changeMap('redalert')" data-dismiss="modal">红色警戒风格</button>
+				<button class="btn btn-primary"  type="button" onclick="changeMap('midnight')" data-dismiss="modal">午夜蓝风格</button>
+				<button class="btn btn-warning"  type="button" onclick="changeMap('pink')" data-dismiss="modal">浪漫粉风格</button>
+				<button class="btn btn-success"  type="button" onclick="changeMap('darkgreen')" data-dismiss="modal">青春绿风格</button>
+				<br>
+				<br>
+				<button class="btn btn-default"  type="button" onclick="changeMap('normal')" data-dismiss="modal">普通地图风格</button>
+				<button class="btn btn-default"  type="button" onclick="changeMap('dark')" data-dismiss="modal">黑夜风格</button>
+				<button class="btn btn-default"  type="button" onclick="changeMap('googlelite')" data-dismiss="modal">精简风格</button>
+				<button class="btn btn-default"  type="button" onclick="changeMap('grassgreen')" data-dismiss="modal">自然绿风格</button>
+				<button class="btn btn-default"  type="button" onclick="changeMap('bluish')" data-dismiss="modal">清新蓝绿风格</button>
+				<button class="btn btn-default"  type="button" onclick="changeMap('grayscale')" data-dismiss="modal">高端灰风格</button>
+				<button class="btn btn-default"  type="button" onclick="changeMap('hardedge')" data-dismiss="modal">强边界风格</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div class="modal fade" id="statistics-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog  modal-lg">
@@ -230,7 +278,7 @@
 			<div class="modal-body">
 				<div>名称：heatpoint</div>
 				<div>介绍：大型活动采集、分析及可视化系统</div>
-				<div>版本：0.3.1</div>
+				<div>版本：0.4.1</div>
 				<br>
 				<div>作者：张仁童</div>
 				<div>邮箱：519539110@qq.com</div>

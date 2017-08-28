@@ -56,13 +56,16 @@ $(function (){
 				success:function(res){
 //					alert(res);
 					locatJson = JSON.parse(res);//  text/*
-					for(var i=0;i<8;i++){
-			    		deletePoint(i);
-			    		Overlay[i]=[];
+					if(locatJson.size==0)
+						alert("很抱歉，搜索不到你想要的内容！");
+					else{
+						for(var i=0;i<8;i++){
+							deletePoint(i);
+							Overlay[i]=[];
+						}
+						index=0;
+						showlocat();
 					}
-//					setIcon();
-					index=0;
-					showlocat();
 				}
     		});
     });
@@ -272,7 +275,8 @@ function showMap(){
 			bmap: {
 		        center: [104.114129, 37.550339],
 		        zoom: 5,
-		        roam: true
+		        roam: true,
+		        enableMapClick:false,
 		    }
 	});
 	map = myChart.getModel().getComponent('bmap').getBMap();
@@ -290,20 +294,7 @@ function showMap(){
 			//map.panTo(r.point);
 		}       
 	},{enableHighAccuracy: true});
-  	map.setMapStyle({style:'midnight'});
-  	myChart.on('click', function (params) {
-  		var line = params.data;
-//  		alert(JSON.stringify(line));
-  		$.ajax({
-			url:"servlet/LocationServlet?action=7&dep="+getAirCode(line.fromName)+"&arr="+getAirCode(line.toName)+"&start="+start,
-			dataType:"text",
-			success:function(res){
-//				alert(res);
-//				eval("var airplant="+res+";");
-				showAirDetail(line.fromName,line.toName,eval(res));
-			}
-  		});
-  	});
+	changeMap('default');
 }
 function back(){
 	map.setCenter("中国");
@@ -327,7 +318,7 @@ function getTime(){
 	}
 	end = document.getElementById("endDate").value;
 	if(end=="结束时间"||end==null){
-		d.setMonth(d.getMonth()+1, d.getDay());
+		d.setDate(new Date().getDate()+30);
 		end=d.toLocaleDateString();
 	}
 	if(befs!=start||befe!=end){
@@ -338,6 +329,7 @@ function getTime(){
 }
 var doing = false;
 function getLocat(type,p){
+//	alert(type);
 	doing = true;
 	getTime();
 	index=0;
@@ -367,7 +359,7 @@ function getLocat(type,p){
 //						doing = false;
 					}
 				});
-	}else {
+	}else if(type==9){
 		var ind = 0;
 		Overlay[9]=[];
 		for(var i in geoCoordMap){
@@ -376,7 +368,339 @@ function getLocat(type,p){
 				ind++;
 			}
 		}
+		myChart.off('click');
+		myChart.on('click', function (params) {
+	  		var line = params.data;
+//	  		alert(JSON.stringify(line));
+	  		$.ajax({
+				url:"servlet/LocationServlet?action=7&dep="+getAirCode(line.fromName)+"&arr="+getAirCode(line.toName)+"&start="+start,
+				dataType:"text",
+				success:function(res){
+//					alert(res);
+//					eval("var airplant="+res+";");
+					showAirDetail(line.fromName,line.toName,eval(res));
+				}
+	  		});
+	  	});
+	}else if(type==10){
+		$.ajax({
+			url:"servlet/LocationServlet?action=8&url=http://news.ceic.ac.cn/ajax/google",
+			dataType:"text",
+			success:function(res){
+				showeq(JSON.parse(res));
+			}
+		});
+		myChart.off('click');
+		myChart.on('click', function (params) {
+			showeqinfo(params.name,params.value);
+	  	});
+	}else if(type==11){
+		$.ajax({
+			url:"servlet/LocationServlet?action=8&url=http://typhoon.zjwater.gov.cn/Api/TyphoonList/"+new Date().getFullYear(),
+			dataType:"text",
+			success:function(res){
+				showTyphoon(JSON.parse(res));
+			}
+		});
+	}else if(type==12){
+		  $.ajax({
+				url:"servlet/LocationServlet?action=8&url=http://typhoon.zjwater.gov.cn/Api/LeastCloud",
+				dataType:"text",
+				success:function(res){
+					showcloud(JSON.parse(res)[0]);
+				}
+			});
 	}
+}
+var cloud;
+var control;
+function showcloud(c){
+	cloud = c;
+	// 西南角和东北角
+	var SW = new BMap.Point(80,2);
+	var NE = new BMap.Point(140,45);
+	// 初始化GroundOverlay
+	var groundOverlay = new BMap.GroundOverlay(new BMap.Bounds(SW, NE));
+	// 设置GroundOverlay的图片地址
+	groundOverlay.setImageURL(c.cloudFullPath+"/"+c.cloudname);
+	map.addOverlay(groundOverlay);
+	Overlay[12]=groundOverlay;
+	// 定义一个控件类,即function
+	function ZoomControl(){
+	  // 默认停靠位置和偏移量
+	  this.defaultAnchor = BMAP_ANCHOR_TOP_RIGHT;
+	  this.defaultOffset = new BMap.Size(10, 10);
+	}
+	// 通过JavaScript的prototype属性继承于BMap.Control
+	ZoomControl.prototype = new BMap.Control();
+	// 自定义控件必须实现自己的initialize方法,并且将控件的DOM元素返回
+	// 在本方法中创建个div元素作为控件的容器,并将其添加到地图容器中
+	ZoomControl.prototype.initialize = function(map){
+		var str = "<div class=\"btn-group\"><button type=\"button\" class=\"btn btn-default\" onclick=\"changcloud(0)\">现在</button><button type=\"button\" class=\"btn btn-default\" onclick=\"changcloud(1)\">1小时前</button><button type=\"button\" class=\"btn btn-default\" onclick=\"changcloud(2)\">3小时前</button><button type=\"button\" class=\"btn btn-default\" onclick=\"changcloud(3)\">6小时前</button></div>";
+	  // 创建一个DOM元素
+	  var div = document.createElement("div");
+	  // 添加文字说明
+	  div.innerHTML=str;
+	  // 添加DOM元素到地图中
+	  map.getContainer().appendChild(div);
+	  // 将DOM元素返回
+	  return div;
+	};
+	// 创建控件
+	control = new ZoomControl();
+	// 添加到地图当中
+	map.addControl(control);
+}
+function changcloud(i){
+	if(i==0)
+		Overlay[12].setImageURL(cloud.cloudFullPath+"/"+cloud.cloudname);
+	if(i==1)
+		Overlay[12].setImageURL(cloud.cloudFullPath+"/"+cloud.cloud1h);
+	if(i==2)
+		Overlay[12].setImageURL(cloud.cloudFullPath+"/"+cloud.cloud3h);
+	if(i==3)
+		Overlay[12].setImageURL(cloud.cloudFullPath+"/"+cloud.cloud6h);
+}
+var mapstyle='midnight';
+function changeMap(style){
+	if(style=='default')
+		changeMap(mapstyle);
+	else if(style=='SATELLITE'){
+		map.setMapType(BMAP_SATELLITE_MAP);
+		mapstyle=style;
+	}
+	else if(style=='HYBRID'){
+		map.setMapType(BMAP_HYBRID_MAP);
+		mapstyle=style;
+	}else{
+		map.setMapType(BMAP_NORMAL_MAP);
+		map.setMapStyle({style:style});
+		mapstyle=style;
+	}
+}
+function showTyphoon(tl){
+	Overlay[11]=[];
+	var str = "<div class=\"panel panel-info\"><div id=\"info-ph\" class=\"panel-heading\"><h1 class=\"panel-title\">"+new Date().getFullYear();
+	str+= "年发生的所有台风<span class='infosize'>（目前共有"+tl.length+"个）</span></h1></div><div class=\"panel-body\">";
+	for(var i = tl.length-1; i >= 0; i--){
+		str = str+"<div class=\"panel panel-default\"><div class=\"panel-heading\" data-toggle=\"collapse\" data-target=\"#info_body_"+i+"\"><h3 class=\"panel-title\">第";
+		var isin="";
+		if(tl[i].isactive==1){
+//			showTyphoonLine(tl[i].tfid);
+			isin=" in ";
+		}
+		str = str+(i+1)+"号台风“"+tl[i].name+"”</h3></div><div id=\"info_body_"+i+"\" class=\"panel-collapse collapse"+isin+"\"> <div class=\"panel-body\">";
+		str = str+"<ul class=\"list-group\"><li class=\"list-group-item\"><b>台风名称:</b>"+tl[i].name+"</li>";
+		str = str+"<li class=\"list-group-item\"><b>英文名称:</b>"+tl[i].enname+"</li>";
+		str = str+"<li class=\"list-group-item\"><b>生成时间:</b>"+tl[i].starttime+"</li>";
+		str = str+"<li class=\"list-group-item\"><b>结束时间:</b>"+tl[i].endtime+"</li>";
+		str = str+"<li class=\"list-group-item\"><b>显示路径:</b><input id=\"Typhoon_"+tl[i].tfid+"\" type=\"checkbox\" class=\"Typhoon\"/></li></ul></div></div></div>";
+	}
+	document.getElementById("info").innerHTML=str+"</div></div>";
+    $(".Typhoon").bootstrapSwitch({  
+        onText:"启动",  
+        offText:"停止",  
+        onColor:"success",  
+        offColor:"info",  
+        size:"small",  
+        onSwitchChange:function(event,state){  
+       	 $(this).val(state);
+       	 var id = event.target.id.lastIndexOf('_');
+    	 id = event.target.id.substr(id+1,6);
+       	 if(state)
+       		showTyphoonLine(id);
+       	 else
+       		for (var i = 0; i < Overlay[11][id].length+1; i++){
+				map.removeOverlay(Overlay[11][id][i]);
+			}
+      }  
+	});
+	for(var i = tl.length-1; i >= 0; i--){
+		if(tl[i].isactive==1){
+			$("#Typhoon_"+tl[i].tfid).bootstrapSwitch('state', true);
+		}
+	}
+}
+function showTyphoonLine(tid){
+	$.ajax({
+		url:"servlet/LocationServlet?action=8&url=http://typhoon.zjwater.gov.cn/Api/TyphoonInfo/"+tid,
+		dataType:"text",
+		success:function(res){
+			res=JSON.parse(res)[0];
+			var pl = [];
+			for(var i = 0; i < res.points.length; i++){
+				pl[i] = new BMap.Point(res.points[i].lng,res.points[i].lat);
+//				if(res.isactive==0&&res.points[i].forecast.length>0){
+//					showforecast(res.points[i].forecast);
+//				}
+			}
+			Overlay[11][tid]=[];
+			Overlay[11][tid][0]=new BMap.Polyline(pl);
+			var ico =new BMap.Marker(pl[0],{icon:new BMap.Icon("http://typhoon.zjwater.gov.cn/images/typhoon.gif", new BMap.Size(40, 40))});
+			Overlay[11][tid][1]=ico;
+			for(var i = 0; i < res.land.length; i++){
+				Overlay[11][tid][i+2] = new BMap.Label(res.land[i].info,{position:new BMap.Point(res.land[i].lng,res.land[i].lat),offset:new BMap.Size(-250,20)});
+				Overlay[11][tid][i+2].setStyle({color : "white"});
+			}
+			for(var i = 0; i < res.points.length; i++){
+				var circle = new BMap.Circle(pl[i],res.points[i].power*5000,{fillColor:getcolor(res.points[i].strong),strokeWeight:2});
+				circlelabel(circle,res.points[i]);
+				Overlay[11][tid][i+2+res.land.length]=circle;
+			}
+			if(res.isactive==1&&res.points[res.points.length-1].forecast.length>0){
+				for(var i = 0; i < res.points[res.points.length-1].forecast.length; i++){
+					showforecast(res.points[res.points.length-1].forecast[i],tid,res.name);
+				}
+			}
+			for(var i = 0; i < Overlay[11][tid].length; i++){
+				map.addOverlay(Overlay[11][tid][i]);
+			}
+			function resetMkPoint(i){
+				ico.setPosition(pl[i]);
+				if(i < pl.length){
+					setTimeout(function(){
+						i++;
+						resetMkPoint(i);
+					},200);
+				}else if(res.isactive==0){
+						map.removeOverlay(ico);
+				}
+			}
+			setTimeout(function(){
+				resetMkPoint(1);
+			},200);
+		}
+	});
+}
+function showforecast(fc,id,name){
+	var pl = [];
+	for(var i = 0; i < fc.forecastpoints.length; i++){
+		pl[i] = new BMap.Point(fc.forecastpoints[i].lng,fc.forecastpoints[i].lat);
+		if(i!=0){
+			var p = new BMap.Marker(pl[i]);
+			var time = fc.forecastpoints[i].time.split(' ');
+			var str = "<div><ul class=\"list-group\"><li class=\"list-group-item\"><b>台风名称:</b>"
+					+name+"</li><li class=\"list-group-item\"><b>发生日期:</b>"
+					+time[0]+"</li><li class=\"list-group-item\"><b>发生时间:</b>"+time[1]+"</li>";
+			if(fc.forecastpoints[i].pressure.length>0){
+				str+="<li class=\"list-group-item\"><b>中心气压:</b>"+fc.forecastpoints[i].pressure+"百帕</li>";
+			}
+			if(fc.forecastpoints[i].speed.length>0){
+				str+="<li class=\"list-group-item\"><b>最大风速:</b>"+fc.forecastpoints[i].speed+"米每秒</li>";
+			}
+			if(fc.forecastpoints[i].power.length>0){
+				str+="<li class=\"list-group-item\"><b>风力:</b>"+fc.forecastpoints[i].power+"级</li>";
+			}
+			if(fc.forecastpoints[i].strong.length>0){
+				str+="<li class=\"list-group-item\"><b>等级:</b>"+fc.forecastpoints[i].strong+"</li>";
+			}
+			str += "<li class=\"list-group-item\"><b>预报来自:</b>"+fc.tm+"</li></div>";
+			var infoWindow = new BMap.InfoWindow(str,{width:0,height:0});
+			p.addEventListener("click",function(e){
+				this.openInfoWindow(infoWindow);
+			});
+			Overlay[11][id][Overlay[11][id].length] = p;
+		}
+	}
+	var sc;
+	if(fc.tm=="中国")
+		sc="red";
+	else if(fc.tm=="中国香港")
+		sc="orange";
+	else if(fc.tm=="中国台湾")
+		sc="pink";
+	else if(fc.tm=="日本")
+		sc="green";
+	else if(fc.tm=="美国")
+		sc="blue";
+	Overlay[11][id][Overlay[11][id].length] = new BMap.Polyline(pl,{strokeColor:sc,strokeStyle:"dashed"});
+}
+function circlelabel(cir,data){
+	var time = data.time.split(' ');
+	var str = "<div class='lable'><ul class=\"list-group\"><li class=\"list-group-item\"><b>发生日期:</b>"
+		+time[0]+"</li><li class=\"list-group-item\"><b>发生时间:</b>"
+		+time[1]+"</li><li class=\"list-group-item\"><b>中心气压:</b>"
+		+data.pressure+"百帕</li><li class=\"list-group-item\"><b>最大风速:</b>"
+		+data.speed+"米每秒</li><li class=\"list-group-item\"><b>风力:</b>"
+		+data.power+"级</li><li class=\"list-group-item\"><b>等级:</b>"
+		+data.strong+"</li><li class=\"list-group-item\"><b>移动速度:</b>"
+		+data.movespeed+"公里每小时</li><li class=\"list-group-item\"><b>移动方向:</b>"
+		+data.movedirection+"</li>";
+	if(data.radius7.length>0){
+		str+="<li class=\"list-group-item\"><b>七级半径:</b>"+data.radius7+"公里</li>";
+		if(data.radius10.length>0){
+			str+="<li class=\"list-group-item\"><b>十级半径:</b>"+data.radius10+"公里</li>";
+		}
+	}
+	str+="</ul></div>";
+	var label = new BMap.Label(str,{position:new BMap.Point(data.lng,data.lat),offset:new BMap.Size(30,-300)});
+	label.setStyle({
+		border:"0",opacity:"0.8"
+	});
+	cir.addEventListener("mouseover",function(e){
+		map.addOverlay(label);
+	});
+	cir.addEventListener("mouseout",function(e){
+		map.removeOverlay(label);
+	});
+}
+function getcolor(strong){
+	if(strong=="热带低压")
+		return "green";
+	else if(strong=="热带风暴")
+		return "blue";
+	else if(strong=="强热带风暴")
+		return "yellow";
+	else if(strong=="台风")
+		return "orange";
+	else if(strong=="强台风")
+		return "pink";
+	else if(strong=="超强台风")
+		return "red";
+}
+function showeq(eq){
+	var data = [];
+	for(var i = 0; i < eq.length; i++){
+		data.push({name: eq[i].LOCATION_C,
+                value: [eq[i].EPI_LON,eq[i].EPI_LAT,eq[i].M,eq[i].EPI_DEPTH,eq[i].O_TIME,eq[i].CATA_ID]
+                });
+	}
+	myChart.setOption({
+//		tooltip : {},
+		series : [
+		          {
+		              name: '地震',
+		              type: 'effectScatter',
+		              coordinateSystem: 'bmap',
+		              data: data,
+		              symbolSize: function (val) {
+		                  return val[2] * 5;
+		              },
+		              showEffectOn: 'render',
+		              rippleEffect: {
+		                  brushType: 'stroke'
+		              },
+		              hoverAnimation: true,
+		              itemStyle: {
+		                  normal: {
+		                      color: "red",
+		                      shadowBlur: 10,
+		                      shadowColor: '#333'
+		                  }
+		              },
+		              zlevel: 1
+		          }
+		      ]
+	});
+}
+function showeqinfo(name,val){
+	var str = "<div class=\"panel panel-info\"><div class=\"panel-heading\"><h1 class=\"panel-title\">"+name
+		+"发生"+val[2]+"级地震</h1></div><div class=\"panel-body\"><ul class=\"list-group\"><li class=\"list-group-item\"><b>地震位置:</b>"
+		+name+"</li><li class=\"list-group-item\"><b>地震级别:</b>"
+		+val[2]+"</li><li class=\"list-group-item\"><b>震源深度:</b>"+val[3]+"</li><li class=\"list-group-item\"><b>地震时间:</b>"+val[4]+
+		"</li><li class=\"list-group-item\"><a href=\"http://news.ceic.ac.cn/"
+		+val[5]+".html\" target=\"_blank\" class='btn btn-info'><b>查看详情</b></a></li></ul></div></div>";
+	document.getElementById("info").innerHTML=str;
 }
 //var series = [{
 ////	name: typeName[0],
@@ -463,7 +787,9 @@ function drawLine(airline){
 	}
 	var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
 	myChart.setOption({
-		tooltip : {position: 'top'},
+		tooltip : {position: function (point, params, dom, rect, size) {
+		      return point;
+		  }},
 		series : [{
 	        type: 'lines',
 	        coordinateSystem: 'bmap',
@@ -720,15 +1046,22 @@ function toData(json){
 function showAirDetail(dep,arr,res){
 //	res=res.data;
 //	alert(res[0][2]);
-	var str = "<div class=\"panel panel-info\"><div id=\"info-ph\" class=\"panel-heading\"><h1 class=\"panel-title\">"+start+"从"+dep+"到"+arr+"的所有航班";
+	var str = "<div class=\"panel panel-info\"><div id=\"info-ph\" class=\"panel-heading\"><h1 class=\"panel-title\">"
+		+start+"从"+dep+"到"+arr+"的所有航班";
 	str += "</h1></div><div class=\"panel-body\">";
 	for(var i in res) {
+		var show = true;
+		for(var j=0; j<i;j++){
+			if(res[i][0]==res[j][0]||res[i][0]==res[j][1]||res[i][1]==res[j][1])
+				show = false;
+		}
 //		if($("#airplant-"+res[i][2]).exist()){
 //			var str = "<li class=\"list-group-item\"><b>航班代码:</b>"+res[i][0]+"</li>";
 //			if(res[i][1]!="")
 //				str += "<li class=\"list-group-item\"><b>航班代码:</b>"+res[i][1]+"</li>";
 //			$("#airplant-"+res[i][2]).appendChild(str);
 //		}else{
+		if(show){
 			str = str+"<div class=\"panel panel-default\"><div class=\"panel-heading\"><h3 class=\"panel-title\">"
 				+res[i][2]+"</h3></div><div class=\"panel-body\"><ul id=\"airplant-"+res[i][2]+
 				"\" class=\"list-group\"><li class=\"list-group-item\"><img src=\"https://res.tianxun.com/flight/images/airline_large/"
@@ -737,7 +1070,7 @@ function showAirDetail(dep,arr,res){
 				str += "<li class=\"list-group-item\"><img src=\"https://res.tianxun.com/flight/images/airline_large/"
 				+res[i][1].substring(0,2)+".png\"><span class=\"aircode\">"+res[i][1]+"</span></li>";
 			str += "</ul></div></div>";
-//		}
+		}
 	}
 	document.getElementById("info").innerHTML=str+"</div></div>";
 }
@@ -821,16 +1154,27 @@ str+= "<span class='infosize'>（共"+info.size+"个）</span></h1></div><div cl
 }
 
 function deletePoint(type){
-	if(Overlay[type]!=null){
-		for (var i = 0; i < Overlay[type].length+1; i++){
-			map.removeOverlay(Overlay[type][i]);
-		}
-		if(type==9){
+//	if(Overlay[type]!=null){
+		if(type<9){
+			for (var i = 0; i < Overlay[type].length+1; i++){
+				map.removeOverlay(Overlay[type][i]);
+			}
+		}else if(type==9||type==10){
 			$(".showtype").bootstrapSwitch('state', false);
 			myChart.dispose();
 			showMap();
+		}else if(type==11){
+			for (var i = 0; i < Overlay[type].length+1; i++){
+				if(Overlay[type][i])
+					for (var j = 0; j < Overlay[type][i].length+1; j++){
+						map.removeOverlay(Overlay[type][i][j]);
+					}
+			}
+		}else if(type==12){
+			map.removeOverlay(Overlay[12]);
+			map.removeControl(control); 
 		}
-	}
+//	}
 }
 
 function searchIsClick(type){
@@ -841,7 +1185,7 @@ function searchIsClick(type){
 
 function search(id,state){
 	var i = id.lastIndexOf('_');
-	i=id.substr(i+1,1);
+	i=id.substr(i+1,2);
 	if(state==true){
 		getLocat(i);
 	}else deletePoint(i);

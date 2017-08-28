@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +19,7 @@ import org.apache.log4j.Logger;
 
 import CrawlerSYS.utils.DBHelper;
 import CrawlerSYS.utils.StringHelper;
+import CrawlerSYS.utils.WebCrawler;
 
 import dao.LocationDao;
 import dao.impl.LocationDaoImpl;
@@ -196,6 +199,16 @@ e.printStackTrace();logger.error("Exception",e);
 				out.write(AirLineFromVariflight.getDetail(dep,arr,startDate));
 			else
 				out.write(AirLineFromVariflight.getAirLine(arr,startDate));
+			out.flush();
+			out.close();
+		}
+		else if(actionSign==8){
+			String url = request.getParameter("url");
+			PrintWriter out = response.getWriter();
+			System.out.println(url);
+			Map<String,String> header = new HashMap<String,String>();
+			header.put("Accept", "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript");
+			out.write(WebCrawler.get(url,header,null));
 			out.flush();
 			out.close();
 		}

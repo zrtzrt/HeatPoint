@@ -3,6 +3,7 @@ package CrawlerSYS.utils;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -217,10 +218,10 @@ e.printStackTrace();logger.error("Exception",e);
 		return res;
 	}
 	
-	public static String[][] spArr(String[] arr,int num){
+	public static String[][] divideArr(String[] arr,int num){
 		int per = arr.length/num, indexX = 0;
 		String[][] res = new String[num][per];
-		String[] t = new String[per];;
+		String[] t = new String[per];
 		for (int i = 0; i < arr.length; i++) {
 			int indexY = i%per;
 			if(indexY==0)

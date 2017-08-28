@@ -1,15 +1,16 @@
 package CrawlerSYS.crawler;
 
 public class DefaultConfig {
-	public static final String dbip = "127.0.0.1/heatpoint";
+//	public static final String dbip = "127.0.0.1/heatpoint";
+	public static final String dbip = "119.29.223.149/heatpoint";
 	public static final String dbArgs = "useUnicode=true&characterEncoding=UTF-8";
 	public static final String user = "root";
 	public static final String password = "FuvgiUwrXULC";
 //	public static final String password = "root";
 	public static final String then = "show";
-	public static final int urlLimit = 20;
-	public static final int thread = 5;
-	public static final int allLimit = 5000;
+	public static final int urlLimit = 30;
+	public static final int thread = 10;
+	public static final int allLimit = 500000;
 	public static final int sleepTime = 0;
 	public static final int serverPort = 6545;
 	public static final int socketPort = 6546;

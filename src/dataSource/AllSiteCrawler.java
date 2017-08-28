@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import CrawlerSYS.crawler.DefaultConfig;
+import CrawlerSYS.node.CrawlerServer;
 import CrawlerSYS.utils.WebCrawler;
 
 public class AllSiteCrawler implements Runnable{
@@ -16,6 +18,8 @@ public class AllSiteCrawler implements Runnable{
 //		Executors.newScheduledThreadPool(1).scheduleAtFixedRate(nc,initDelay,1,TimeUnit.DAYS);
 //	}
 	public void run(){
+		CrawlerServer cs = new CrawlerServer(DefaultConfig.serverPort);
+		cs.start();
 		long startTime ,endTime;
 		System.out.println("爬虫已启动");
 		logger.info("爬虫已启动");
@@ -48,5 +52,6 @@ public class AllSiteCrawler implements Runnable{
 		endTime = new Date().getTime();
 		System.out.println("爬虫已全部完成，用时"+(endTime-startTime)/1000+"s");
 		logger.info("爬虫已全部完成，用时"+(endTime-startTime)/1000+"s");
+		cs.close();
 	}
 }

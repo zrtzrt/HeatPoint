@@ -74,7 +74,7 @@ public class MainNodeControler implements Runnable{
 //		System.out.println("MainNodeControler start------------"+node.length);
 		logger.info("MainNodeControler start------------"+node.length);
 //		System.out.println(urlRegex.get(0));
-		String[][] u = StringHelper.spArr(url.toArray(new String[url.size()]), node.length);
+		String[][] u = StringHelper.divideArr(url.toArray(new String[url.size()]), node.length);
 		if(then.equalsIgnoreCase("save")||then.equalsIgnoreCase("saveasList")){
 			if(!(dbip.matches("*:[0-9]+/*")&&StringHelper.validateString(user)&&StringHelper.validateString(pwd))){
 				System.err.println("JDBC config missed");

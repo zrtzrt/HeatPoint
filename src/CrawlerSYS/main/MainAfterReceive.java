@@ -1,5 +1,7 @@
 package CrawlerSYS.main;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import net.minidev.json.JSONObject;
@@ -35,6 +37,7 @@ public class MainAfterReceive extends Thread{
 					nc.getNewUrl().add(link[i].trim().toLowerCase());
 				}else{
 					if(nc.getUrl().size()>=nc.getAllLimit()){
+						logger.info("已达到数量上限："+nc.getAllLimit());
 						nc.setRelink(false);
 						nc.over();
 					}
@@ -42,7 +45,19 @@ public class MainAfterReceive extends Thread{
 			}
 //			System.out.println("---------got new url:"+nc.getNewUrl().size()+"\n"+nc.getNewUrl()+"---------");
 			logger.info("got new url:"+nc.getNewUrl().size()+"\n");
-			if (nc.getNewUrl().size()<nc.getUrlLimit()) {
+			while(nc.getNewUrl().size()>nc.getUrlLimit()){
+				List<String> sublist = nc.getNewUrl().subList(0, nc.getUrlLimit());
+				nc.send(sublist.toArray(new String[0]), nc.getIndexOfNode());
+//				if(nc.getConn()!=null)
+//					nc.getConn().send(nc.getNewUrl().size()+"@"+nc.getNode()[nc.getIndexOfNode()]);
+//				System.out.println(nc.getNewUrl().size()+"@"+nc.getNode()[nc.getIndexOfNode()]+"\n"+nc.getNewUrl());
+				logger.info(sublist.size()+"@"+nc.getNode()[nc.getIndexOfNode()]);
+				if(nc.getIndexOfNode()<nc.getNode().length-1)
+					nc.setIndexOfNode(nc.getIndexOfNode()+1);
+				else nc.setIndexOfNode(0);
+				sublist.clear();
+			}
+			if (nc.getNewUrl().size()>0) {
 				nc.send(nc.getNewUrl().toArray(new String[0]), nc.getIndexOfNode());
 //				if(nc.getConn()!=null)
 //					nc.getConn().send(nc.getNewUrl().size()+"@"+nc.getNode()[nc.getIndexOfNode()]);
@@ -52,27 +67,27 @@ public class MainAfterReceive extends Thread{
 					nc.setIndexOfNode(nc.getIndexOfNode()+1);
 				else nc.setIndexOfNode(0);
 				nc.getNewUrl().clear();
-			}else {
-				for (int i = 0; i < nc.getNewUrl().size()/nc.getUrlLimit(); i++) {
-					String[] u = new String[nc.getUrlLimit()];
-					for (int k = 0; k < u.length; k++)
-						u[k] = nc.getNewUrl().get(i*u.length+k);
-//					System.out.println(nc.getUrlLimit()+"@"+nc.getNode()[nc.getIndexOfNode()]+"\n"+Arrays.asList(u));
-					logger.info(nc.getUrlLimit()+"@"+nc.getNode()[nc.getIndexOfNode()]);
-					nc.send(u, nc.getIndexOfNode());
-					if(nc.getIndexOfNode()<nc.getNode().length-1)
-						nc.setIndexOfNode(nc.getIndexOfNode()+1);
-					else nc.setIndexOfNode(0);
-					for (int k = 0; k < u.length; k++)
-						nc.getNewUrl().remove(i*u.length);
-					try {
-						Thread.sleep(nc.getSleeptime());
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-e.printStackTrace();logger.error("Exception",e);
-					}
-				}
 			}
+//				for (int i = 0; i <= (nc.getNewUrl().size()/nc.getUrlLimit())+1; i++) {
+//					String[] u = new String[nc.getUrlLimit()];
+//					for (int k = 0; k < u.length; k++)
+//						u[k] = nc.getNewUrl().get(i*u.length+k);
+////					System.out.println(nc.getUrlLimit()+"@"+nc.getNode()[nc.getIndexOfNode()]+"\n"+Arrays.asList(u));
+//					logger.info(nc.getUrlLimit()+"@"+nc.getNode()[nc.getIndexOfNode()]);
+//					nc.send(u, nc.getIndexOfNode());
+//					if(nc.getIndexOfNode()<nc.getNode().length-1)
+//						nc.setIndexOfNode(nc.getIndexOfNode()+1);
+//					else nc.setIndexOfNode(0);
+//					for (int k = 0; k < u.length; k++)
+//						nc.getNewUrl().remove(i*u.length);
+//					try {
+//						Thread.sleep(nc.getSleeptime());
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//e.printStackTrace();logger.error("Exception",e);
+//					}
+//				}
+//			}
 		}
 //		else System.out.println("link=null");
 //		if (nc.getthen().equalsIgnoreCase("auto")) {

@@ -207,9 +207,9 @@ e.printStackTrace();logger.error("Exception",e);
 		Executors.newScheduledThreadPool(1).scheduleAtFixedRate(new AllSiteCrawler(),delay,1,TimeUnit.DAYS);
 		System.out.println("定时爬虫已启动，默认时间为每天凌晨2点，下次运行时间为"+cal.getTime().toString());
 		logger.info("定时爬虫已启动，默认时间为每天凌晨2点，下次运行时间为"+cal.getTime().toString());
-		new CrawlerServer(DefaultConfig.serverPort).start();
-		System.out.println("本地爬虫节点通信服务已启动，默认端口为"+DefaultConfig.serverPort);
-		logger.info("本地爬虫节点通信服务已启动，默认端口为"+DefaultConfig.serverPort);
+//		new CrawlerServer(DefaultConfig.serverPort).start();
+//		System.out.println("本地爬虫节点通信服务已启动，默认端口为"+DefaultConfig.serverPort);
+//		logger.info("本地爬虫节点通信服务已启动，默认端口为"+DefaultConfig.serverPort);
 	}
 
 }
