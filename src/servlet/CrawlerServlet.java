@@ -177,39 +177,5 @@ public class CrawlerServlet extends HttpServlet {
 //        super.init(config);  
 //    }  
 
-	/**
-	 * Initialization of the servlet. <br>
-	 *
-	 * @throws ServletException if an error occurs
-	 */
-	public void init() throws ServletException {
-		// Put your code here
-		String file = this.getServletContext().getRealPath(this.getInitParameter("log4j"));
-		//从web.xml配置读取，名字一定要和web.xml配置一致
-		  if(file != null){
-		     PropertyConfigurator.configure(file);
-		  }
-		try {
-			WebCrawler.ignoreSsl();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-e.printStackTrace();logger.error("Exception",e);
-		}
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, 2);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		cal.add(Calendar.DAY_OF_MONTH, 1);
-		long delay = cal.getTimeInMillis() - System.currentTimeMillis();
-//		AllSiteCrawler asc = new AllSiteCrawler();
-//		System.out.println(cal.getTime().toString()+delay);
-		Executors.newScheduledThreadPool(1).scheduleAtFixedRate(new AllSiteCrawler(),delay,1,TimeUnit.DAYS);
-		System.out.println("定时爬虫已启动，默认时间为每天凌晨2点，下次运行时间为"+cal.getTime().toString());
-		logger.info("定时爬虫已启动，默认时间为每天凌晨2点，下次运行时间为"+cal.getTime().toString());
-//		new CrawlerServer(DefaultConfig.serverPort).start();
-//		System.out.println("本地爬虫节点通信服务已启动，默认端口为"+DefaultConfig.serverPort);
-//		logger.info("本地爬虫节点通信服务已启动，默认端口为"+DefaultConfig.serverPort);
-	}
-
+	
 }

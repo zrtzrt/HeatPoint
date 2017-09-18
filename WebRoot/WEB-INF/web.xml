@@ -4,17 +4,17 @@
   <servlet>
     <servlet-name>LocationServlet</servlet-name>
     <servlet-class>servlet.LocationServlet</servlet-class>
+    <init-param>  
+        <param-name>log4j</param-name>  
+        <param-value>\WEB-INF\classes\log4j.properties</param-value>  
+    </init-param>  
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>CrawlerServlet</servlet-name>
     <servlet-class>servlet.CrawlerServlet</servlet-class>
-    <init-param>  
-        <param-name>log4j</param-name>  
-        <param-value>\WEB-INF\classes\log4j.properties</param-value>  
-    </init-param>  
-    <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>

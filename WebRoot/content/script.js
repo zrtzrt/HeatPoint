@@ -88,10 +88,11 @@ $(function (){
     	if(!hasStatistics)
     		showStatistics();
     });
+    sendInfo();
 });
-//function openBTN(index){
-//	$("#search_showtype_"+index).bootstrapSwitch('state', true);
-//}
+function sendInfo(){
+	$.ajax({url:"servlet/LocationServlet?action=9"});
+}
 var hasStatistics = false;
 function showStatistics(){
 	hasStatistics = true;

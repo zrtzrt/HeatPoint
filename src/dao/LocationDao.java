@@ -19,4 +19,5 @@ public interface LocationDao {
 	public List<LocationEntity> search( String k,Date startDate, Date endDate);
 	public String getCountP(Date startDate, Date endDate);
 	public String getCount(int year);
+	public void saveBrowser(String ip,String user);
 }

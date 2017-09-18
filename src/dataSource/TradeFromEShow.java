@@ -1,5 +1,7 @@
 package dataSource;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import out.Output;
 
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -291,12 +295,12 @@ e.printStackTrace();logger.error("Exception",e);
 			// TODO Auto-generated catch block
 e.printStackTrace();logger.error("Exception",e);
 		}
-		
+//		
 		new CrawlerServer(6545).start();
 //		long startTime ,endTime;
 //		System.out.println("爬虫已启动");
 //		startTime = new Date().getTime();
-		new TradeFromCnena().init();
+//		new TradeFromCnena().init();
 //		new TradeFromEShow().init();
 //		new ShowFromDaMai().init(7);
 //		new ShowFrom228().init(7);
@@ -316,17 +320,18 @@ e.printStackTrace();logger.error("Exception",e);
 //        s = s.replaceAll("(?i)(<SCRIPT)[\\s\\S]*?((</SCRIPT>)|(/>))", "");//忽略大小写的正则  
 //        System.out.println(s);
 //		System.out.println("a\"u\"to".replaceAll("\"", "'"));
-//		File file = new File("/outputFile"+new Date().toString().split(":", 2)[0]+".xls");
-//		try {
-//			file.createNewFile();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();logger.error("Exception",e);
-//		}
-//		new Output("xls","C:\\Users\\51953_000\\Workspaces\\MyEclipse 10\\HeatPoint\\WebRoot\\WEB-INF\\outputFile");
+		File file = new File("/outputFile"+new Date().toString().split(":", 2)[0]+".xls");
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();logger.error("Exception",e);
+		}
+		new Output("xlsx","C:\\Users\\51953_000\\Workspaces\\MyEclipse 10\\HeatPoint\\WebRoot\\WEB-INF\\outputFile");
 //		String url = "https://venue.damai.cn/ajax.aspx?_action=Search&keyword=南京";
 //		String json = WebCrawler.get(url,null,null);
 //		System.out.println(json);
+		
 	}
 
 	@Override

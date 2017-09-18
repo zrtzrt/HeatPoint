@@ -5,10 +5,13 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import CrawlerSYS.utils.DBHelper;
 import CrawlerSYS.utils.StringHelper;
@@ -24,6 +28,7 @@ import CrawlerSYS.utils.WebCrawler;
 import dao.LocationDao;
 import dao.impl.LocationDaoImpl;
 import dataSource.AirLineFromVariflight;
+import dataSource.AllSiteCrawler;
 import entity.LocationEntity;
 import entity.ShowEntity;
 import entity.TradeEntity;
@@ -46,7 +51,7 @@ public class LocationServlet extends HttpServlet {
 			else startDate = new Date();
 			t=request.getParameter("end");
 			if(t!=null)
-				endDate=sdf.parse(t);
+				endDate = sdf.parse(t);
 			else endDate=startDate;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -212,6 +217,11 @@ e.printStackTrace();logger.error("Exception",e);
 			out.flush();
 			out.close();
 		}
+		else if(actionSign==9){
+			String ip = request.getRemoteAddr();
+			String ua = request.getHeader("User-Agent");
+			dao.saveBrowser(ip, ua);
+		}
 	}
 
 	/**
@@ -249,7 +259,32 @@ e.printStackTrace();logger.error("Exception",e);
 	 */
 	public void init() throws ServletException {
 		// Put your code here
-//		new CrawlerServer(6543).start();
+		String file = this.getServletContext().getRealPath(this.getInitParameter("log4j"));
+		//从web.xml配置读取，名字一定要和web.xml配置一致
+		  if(file != null){
+		     PropertyConfigurator.configure(file);
+		  }
+		try {
+			WebCrawler.ignoreSsl();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+e.printStackTrace();logger.error("Exception",e);
+		}
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 2);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		cal.add(Calendar.DAY_OF_MONTH, 1);
+		long delay = cal.getTimeInMillis() - System.currentTimeMillis();
+//		AllSiteCrawler asc = new AllSiteCrawler();
+//		System.out.println(cal.getTime().toString()+delay);
+		Executors.newScheduledThreadPool(1).scheduleAtFixedRate(new AllSiteCrawler(),delay,1,TimeUnit.DAYS);
+		System.out.println("定时爬虫已启动，默认时间为每天凌晨2点，下次运行时间为"+cal.getTime().toString());
+		logger.info("定时爬虫已启动，默认时间为每天凌晨2点，下次运行时间为"+cal.getTime().toString());
+//		new CrawlerServer(DefaultConfig.serverPort).start();
+//		System.out.println("本地爬虫节点通信服务已启动，默认端口为"+DefaultConfig.serverPort);
+//		logger.info("本地爬虫节点通信服务已启动，默认端口为"+DefaultConfig.serverPort);
 	}
 
 }

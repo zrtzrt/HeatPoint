@@ -32,14 +32,6 @@ public class AllSiteCrawler implements Runnable{
 //				+StringHelper.getStringTime("yyyy/MM/dd")+"&page=1").thread(3).run();
 //		Spider.create(new tradeFromHZH()).addUrl("http://www.haozhanhui.com/zhanlanjihua/").thread(2).run();
 //	    Spider.create(new tradeFromCnena()).addUrl("http://www.cnena.com/showroom/list-htm-fid-1.html").thread(2).run();
-		new TradeFromEShow().init();
-		endTime = new Date().getTime();
-		System.out.println("TradeFromEShow已完成，用时"+(endTime-startTime)/1000+"s");
-		logger.info("TradeFromEShow已完成，用时"+(endTime-startTime)/1000+"s");
-		new TradeFromCnena().init();
-		endTime = new Date().getTime();
-		System.out.println("TradeFromCnena已完成，用时"+(endTime-startTime)/1000+"s");
-		logger.info("TradeFromCnena已完成，用时"+(endTime-startTime)/1000+"s");
 		new ShowFromDaMai().init(7);
 		endTime = new Date().getTime();
 		System.out.println("ShowFromDaMai已完成，用时"+(endTime-startTime)/1000+"s");
@@ -52,6 +44,14 @@ public class AllSiteCrawler implements Runnable{
 		endTime = new Date().getTime();
 		System.out.println("爬虫已全部完成，用时"+(endTime-startTime)/1000+"s");
 		logger.info("爬虫已全部完成，用时"+(endTime-startTime)/1000+"s");
+		new TradeFromEShow().init();
+		endTime = new Date().getTime();
+		System.out.println("TradeFromEShow已完成，用时"+(endTime-startTime)/1000+"s");
+		logger.info("TradeFromEShow已完成，用时"+(endTime-startTime)/1000+"s");
+		new TradeFromCnena().init();
+		endTime = new Date().getTime();
+		System.out.println("TradeFromCnena已完成，用时"+(endTime-startTime)/1000+"s");
+		logger.info("TradeFromCnena已完成，用时"+(endTime-startTime)/1000+"s");
 		cs.close();
 	}
 }

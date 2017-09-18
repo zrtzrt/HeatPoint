@@ -124,6 +124,7 @@ public class MainNodeControler implements Runnable{
 			json.put("table", table);
 		}
 		json.put("lable", lable);
+//		System.out.println(json.toJSONString());
 		try {
 			if(outList[i]==null){
 //				System.out.println(node[i]);

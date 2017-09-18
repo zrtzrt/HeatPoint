@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -331,6 +332,20 @@ e.printStackTrace();logger.error("Exception",e);
 		return res;
 	}
 
+	public void saveBrowser(String ip,String user) {
+		String[] lable= new String[]{"ip","agent","opentime"};
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String[] data= new String[]{ip,user,df.format(new Date())};
+		String sql = StringHelper.sqlINSERT("browserInfo",lable,data);
+		try {
+			DBHelper.getConn().prepareStatement(sql).executeUpdate();
+			DBHelper.closeConn();
+		} catch (SQLException e) {
+			DBHelper.closeConn();
+e.printStackTrace();logger.error("Exception",e);
+		}
+	}
+	
 //	public <T> List<T> getInfo(int id, int type, Date startDate, Date endDate) {
 //		List<T> ol = new ArrayList<Object>();
 //		String sql = null;
