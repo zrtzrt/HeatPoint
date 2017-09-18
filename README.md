@@ -5,8 +5,10 @@
 [![主视图](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E4%B8%BB%E8%A7%86%E5%9B%BE.JPG)](http://cloudforwork.cn/heatpoint)
 [![统计1](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE1.JPG)](http://cloudforwork.cn/heatpoint)
 [![统计2](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE2.JPG)](http://cloudforwork.cn/heatpoint)
-[![统计3](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E7%BB%9F%E8%AE%A1%E8%A7%86%E5%9B%BE3.JPG)](http://cloudforwork.cn/heatpoint)
-[![航班](https://github.com/zrtzrt/HeatPoint/raw/master/docs/img/%E8%88%AA%E7%8F%AD%E8%A7%86%E5%9B%BE.JPG)](http://cloudforwork.cn/heatpoint)
+[![统计3](/docs/img/详细信息.png)](http://cloudforwork.cn/heatpoint)
+[![地震信息](/docs/img/地震信息.png)](http://cloudforwork.cn/heatpoint)
+[![台风预警](/docs/img/台风预警.png)](http://cloudforwork.cn/heatpoint)
+[![航班信息](/docs/img/航班信息.png)](http://cloudforwork.cn/heatpoint)
 
 ### 使用方式
 
@@ -17,14 +19,19 @@
 |   数据类型   | 第三方网站                                    |
 | :------: | :--------------------------------------- |
 |    展会    | [E展会](http://www.eshow365.com/)、 [中国会展门户](http://www.cnena.com/) |
+|   政治会议   | [活动家](https://www.huodongjia.com/)       |
 | 演唱会、体育赛事 | [大麦网](https://www.damai.cn/)、 [永乐票务](http://www.228.com.cn/) |
 |  突发异常天气  | [中国天气](http://www.weather.com.cn/)       |
-|   政治会议   | [活动家](https://www.huodongjia.com/)       |
+|   地震信息   | [中国地震台网](http://news.ceic.ac.cn/)       |
+|   台风预警   | [浙江水利厅网](http://www.zjwater.gov.cn/)       |
 |   航班信息   | [飞常准](http://www.variflight.com/)        |
 
 ## 感谢
 
   [CrawlerSYS](https://github.com/zrtzrt/CrawlerSYS)、 [echarts](https://github.com/ecomfe/echarts)、[poi](https://github.com/apache/poi)、  [百度地图](http://map.baidu.com/)
+  
+## 微信小程序
+[WX-HeatPoint](https://github.com/zrtzrt/WX-HeatPoint)
 
 ## 协议
 
