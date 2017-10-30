@@ -289,14 +289,14 @@ e.printStackTrace();logger.error("Exception",e);
 //		new WeatherAlarm().init();
 ////		new tradeFromEShow().init();
 		
-		try {
-			WebCrawler.ignoreSsl();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-e.printStackTrace();logger.error("Exception",e);
-		}
+//		try {
+//			WebCrawler.ignoreSsl();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//e.printStackTrace();logger.error("Exception",e);
+//		}
 //		
-		new CrawlerServer(6545).start();
+//		new CrawlerServer(6545).start();
 //		long startTime ,endTime;
 //		System.out.println("爬虫已启动");
 //		startTime = new Date().getTime();
@@ -308,7 +308,7 @@ e.printStackTrace();logger.error("Exception",e);
 //		endTime = new Date().getTime();
 //		System.out.println("ShowFromDaMai已完成，用时"+(endTime-startTime)/1000+"s");
 		
-//		new AllSiteCrawler().run();
+		new AllSiteCrawler().run();
 		
 //		System.out.println(StringHelper.similarity("'岳来越快乐'2017岳云鹏相声专场—太原站", "'岳来越快乐'2017岳云鹏相声专场—成都站"));
 //		System.out.println("http://www.eshow365.com/zhanhui/Ajax/AjaxSearcherV3.aspx?1=1&tag=0&starttime="
@@ -320,14 +320,14 @@ e.printStackTrace();logger.error("Exception",e);
 //        s = s.replaceAll("(?i)(<SCRIPT)[\\s\\S]*?((</SCRIPT>)|(/>))", "");//忽略大小写的正则  
 //        System.out.println(s);
 //		System.out.println("a\"u\"to".replaceAll("\"", "'"));
-		File file = new File("/outputFile"+new Date().toString().split(":", 2)[0]+".xls");
-		try {
-			file.createNewFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();logger.error("Exception",e);
-		}
-		new Output("xlsx","C:\\Users\\51953_000\\Workspaces\\MyEclipse 10\\HeatPoint\\WebRoot\\WEB-INF\\outputFile");
+//		File file = new File("/outputFile"+new Date().toString().split(":", 2)[0]+".xls");
+//		try {
+//			file.createNewFile();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();logger.error("Exception",e);
+//		}
+//		new Output("xlsx","C:\\Users\\51953_000\\Workspaces\\MyEclipse 10\\HeatPoint\\WebRoot\\WEB-INF\\outputFile");
 //		String url = "https://venue.damai.cn/ajax.aspx?_action=Search&keyword=南京";
 //		String json = WebCrawler.get(url,null,null);
 //		System.out.println(json);

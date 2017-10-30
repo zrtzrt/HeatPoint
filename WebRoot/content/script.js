@@ -853,36 +853,60 @@ function setIcon(type){
 	myIcon.setInfoWindowAnchor(a);
 }
 function weatheralarm(){
-	var add = locatJson.weatheralarm[index];
+//	var add = locatJson.weatheralarm[index];
+	var add = locatJson.data[index];
 	geoweather(add);
 	index++;
 }
 function geoweather(add){
-	if(index < locatJson.weatheralarm.length){
+//	if(index < locatJson.weatheralarm.length){
+//		setTimeout(weatheralarm,1);
+//	}
+	if(index < locatJson.count){
 		setTimeout(weatheralarm,1);
 	}
 	var myGeo = new BMap.Geocoder();
-	var ind=add.file.lastIndexOf('-');
-	var gif=add.file.substr(ind+1,4);
-	add.index=index;
-	myGeo.getPoint(add.locat, function(point){
+//	var ind=add.file.lastIndexOf('-');
+//	var gif=add.file.substr(ind+1,4);
+//	add.index=index;
+//	myGeo.getPoint(add.locat, function(point){
+//		if (point){
+//			if(gif.substr(0,1)=="9")
+//				gif="0000";
+//			myIcon = new BMap.Icon("http://www.weather.com.cn/m2/i/alarm_n/"+gif+".gif", new BMap.Size(32,37));
+//			var marker=new BMap.Marker(point,{icon:myIcon,title:add.name});
+//			Overlay[8][add.index]=marker;
+//			map.addOverlay(marker);
+//			marker.addEventListener("click",function(e){getalarm(add,gif);});
+//		}
+//	});
+	
+	var ind=add[1].lastIndexOf('-');
+	var gif=add[1].substr(ind+1,4);
+	add[2]=index;
+	myGeo.getPoint(add[0], function(point){
 		if (point){
 			if(gif.substr(0,1)=="9")
 				gif="0000";
 			myIcon = new BMap.Icon("http://www.weather.com.cn/m2/i/alarm_n/"+gif+".gif", new BMap.Size(32,37));
-			var marker=new BMap.Marker(point,{icon:myIcon,title:add.name});
-			Overlay[8][add.index]=marker;
+			var marker=new BMap.Marker(point,{icon:myIcon,title:add[0]});
+			Overlay[8][add[2]]=marker;
 			map.addOverlay(marker);
 			marker.addEventListener("click",function(e){getalarm(add,gif);});
 		}
 	});
 }
 function getalarm(add,gif){
+//	var str = "<div class=\"panel panel-info\"><div class=\"panel-heading\"><h1 class=\"panel-title\">"+add.type
+//		+"预警</h1></div><div class=\"panel-body\"><a href=\"http://www.weather.com.cn/alarm/newalarmcontent.shtml?file="
+//		+add.file+"\" class=\"thumbnail\" target=\"_blank\"><img src=\"http://www.weather.com.cn/m2/i/alarm_n/"+gif+".gif\"></a><h3><b>"
+//		+add.locat+"发布"+add.color+add.type+"预警</b></h3><div><a href=\"http://www.weather.com.cn/alarm/newalarmcontent.shtml?file="
+//		+add.file+"\" target=\"_blank\" class='btn btn-info'><b>查看详情</b></a></div></div></div>";
 	var str = "<div class=\"panel panel-info\"><div class=\"panel-heading\"><h1 class=\"panel-title\">"+add.type
-		+"预警</h1></div><div class=\"panel-body\"><a href=\"http://www.weather.com.cn/alarm/newalarmcontent.shtml?file="
-		+add.file+"\" class=\"thumbnail\" target=\"_blank\"><img src=\"http://www.weather.com.cn/m2/i/alarm_n/"+gif+".gif\"></a><h3><b>"
-		+add.locat+"发布"+add.color+add.type+"预警</b></h3><div><a href=\"http://www.weather.com.cn/alarm/newalarmcontent.shtml?file="
-		+add.file+"\" target=\"_blank\" class='btn btn-info'><b>查看详情</b></a></div></div></div>";
+	+"预警</h1></div><div class=\"panel-body\"><a href=\"http://www.weather.com.cn/alarm/newalarmcontent.shtml?file="
+	+add.file+"\" class=\"thumbnail\" target=\"_blank\"><img src=\"http://www.weather.com.cn/m2/i/alarm_n/"+gif+".gif\"></a><h3><b>"
+	+add.locat+"发布"+add.color+add.type+"预警</b></h3><div><a href=\"http://www.weather.com.cn/alarm/newalarmcontent.shtml?file="
+	+add.file+"\" target=\"_blank\" class='btn btn-info'><b>查看详情</b></a></div></div></div>";
 	document.getElementById("info").innerHTML=str;
 }
 function showlocat(){
@@ -1156,7 +1180,7 @@ str+= "<span class='infosize'>（共"+info.size+"个）</span></h1></div><div cl
 
 function deletePoint(type){
 //	if(Overlay[type]!=null){
-		if(type<9){
+		if(type<9&&Overlay[type]!=null){
 			for (var i = 0; i < Overlay[type].length+1; i++){
 				map.removeOverlay(Overlay[type][i]);
 			}
@@ -1164,14 +1188,14 @@ function deletePoint(type){
 			$(".showtype").bootstrapSwitch('state', false);
 			myChart.dispose();
 			showMap();
-		}else if(type==11){
+		}else if(type==11&&Overlay[type]!=null){
 			for (var i = 0; i < Overlay[type].length+1; i++){
 				if(Overlay[type][i])
 					for (var j = 0; j < Overlay[type][i].length+1; j++){
 						map.removeOverlay(Overlay[type][i][j]);
 					}
 			}
-		}else if(type==12){
+		}else if(type==12&&Overlay[type]!=null){
 			map.removeOverlay(Overlay[12]);
 			map.removeControl(control); 
 		}

@@ -65,33 +65,33 @@ public class CrawlerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		int actionSign=Integer.parseInt(request.getParameter("action"));
 		if(actionSign==0){//actionSign=0表示下载文件
-			String fileType = request.getParameter("file");
-			String filename = new Date().toString().split(":", 2)[0];
-			filename = filename.substring(0, filename.length()-3);
-			String path=this.getServletContext().getRealPath("/WEB-INF/outputFile");
-			System.out.println(path);
-			File file = new File(path+"\\"+filename+"."+fileType);
-			if(!file.exists())
-				new Output(fileType,path);
-			//设置响应头，控制浏览器下载该文件
-			response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
-			//读取要下载的文件，保存到文件输入流
-			FileInputStream in = new FileInputStream(file.getPath());
-			//创建输出流
-			OutputStream out = response.getOutputStream();
-			//创建缓冲区
-			byte buffer[] = new byte[1024];
-			int len = 0;
-			//循环将输入流中的内容读取到缓冲区当中
-			while((len=in.read(buffer))>0){
-			//输出缓冲区的内容到浏览器，实现文件下载
-				out.write(buffer, 0, len);
-			}
-			out.flush();
-			//关闭文件输入流
-			in.close();
-			//关闭输出流
-			out.close();
+//			String fileType = request.getParameter("file");
+//			String filename = new Date().toString().split(":", 2)[0];
+//			filename = filename.substring(0, filename.length()-3);
+//			String path=this.getServletContext().getRealPath("/WEB-INF/outputFile");
+//			System.out.println(path);
+//			File file = new File(path+"\\"+filename+"."+fileType);
+//			if(!file.exists())
+//				new Output(fileType,path);
+//			//设置响应头，控制浏览器下载该文件
+//			response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
+//			//读取要下载的文件，保存到文件输入流
+//			FileInputStream in = new FileInputStream(file.getPath());
+//			//创建输出流
+//			OutputStream out = response.getOutputStream();
+//			//创建缓冲区
+//			byte buffer[] = new byte[1024];
+//			int len = 0;
+//			//循环将输入流中的内容读取到缓冲区当中
+//			while((len=in.read(buffer))>0){
+//			//输出缓冲区的内容到浏览器，实现文件下载
+//				out.write(buffer, 0, len);
+//			}
+//			out.flush();
+//			//关闭文件输入流
+//			in.close();
+//			//关闭输出流
+//			out.close();
 		}else if(actionSign==1){
 			int showtype=Integer.parseInt(request.getParameter("type"));
 			String pw = request.getParameter("pw");

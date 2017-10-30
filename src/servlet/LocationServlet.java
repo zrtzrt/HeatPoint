@@ -83,27 +83,33 @@ e.printStackTrace();logger.error("Exception",e);
 				}
 				out.write("],\"size\":"+ll.size()+"}");
 			}else{
-				String[] lable=new String[]{"locat","file","type","color"};
-				String sql=StringHelper.sqlSELECT("weatheralarm", lable, null);
-				out.write("{\"weatheralarm\":[");
-				try {
-					DBHelper.ps=DBHelper.getConn().prepareStatement(sql);
-					DBHelper.rs=DBHelper.ps.executeQuery();
-					while(DBHelper.rs.next()){
-						out.write("{\"locat\":\""+DBHelper.rs.getString(1)+"\"");
-						out.write(",\"file\":\""+DBHelper.rs.getString(2)+"\"");
-						out.write(",\"type\":\""+DBHelper.rs.getString(3)+"\"");
-						out.write(",\"color\":\""+DBHelper.rs.getString(4)+"\"");
-						if(DBHelper.rs.isLast())
-							out.write("}");
-						else out.write("},");
-					}
-					out.write("]}");
-					DBHelper.closeConn();
-				} catch (SQLException e) {
-					DBHelper.closeConn();
-e.printStackTrace();logger.error("Exception",e);
-				}
+//				String[] lable=new String[]{"locat","file","type","color"};
+//				String sql=StringHelper.sqlSELECT("weatheralarm", lable, null);
+//				out.write("{\"weatheralarm\":[");
+//				try {
+//					DBHelper.ps=DBHelper.getConn().prepareStatement(sql);
+//					DBHelper.rs=DBHelper.ps.executeQuery();
+//					while(DBHelper.rs.next()){
+//						out.write("{\"locat\":\""+DBHelper.rs.getString(1)+"\"");
+//						out.write(",\"file\":\""+DBHelper.rs.getString(2)+"\"");
+//						out.write(",\"type\":\""+DBHelper.rs.getString(3)+"\"");
+//						out.write(",\"color\":\""+DBHelper.rs.getString(4)+"\"");
+//						if(DBHelper.rs.isLast())
+//							out.write("}");
+//						else out.write("},");
+//					}
+//					out.write("]}");
+//					DBHelper.closeConn();
+//				} catch (SQLException e) {
+//					DBHelper.closeConn();
+//e.printStackTrace();logger.error("Exception",e);
+//				}
+				
+				Map<String,String> header=new HashMap<String,String>();
+				header.put("Referer","http://www.weather.com.cn/alarm/warninglist.shtml");
+				String json = WebCrawler.get("http://product.weather.com.cn/alarm/grepalarm.php?areaid=[0-9]{5,7}",header,"UTF-8").split("=", 2)[1];
+				json=json.substring(0, json.length()-1);
+				out.write(json);
 			}
 			out.flush();
 			out.close();

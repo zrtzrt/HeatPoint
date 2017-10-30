@@ -140,8 +140,8 @@
 		<li class="divider"></li>
 		<li><a data-toggle="modal" data-target="#setting">爬虫配置</a></li>
 		<li class="divider"></li>
-		<li><a data-toggle="modal" data-target="#download">下载数据</a></li>
-		<li class="divider"></li>
+		<!-- <li><a data-toggle="modal" data-target="#download">下载数据</a></li>
+		<li class="divider"></li> -->
 		<li><a data-toggle="modal" data-target="#about">关于</a></li>
 	</ul></div></div>
 	</form>
