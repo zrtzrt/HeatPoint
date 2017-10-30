@@ -31,7 +31,17 @@
   [CrawlerSYS](https://github.com/zrtzrt/CrawlerSYS)、 [echarts](https://github.com/ecomfe/echarts)、[poi](https://github.com/apache/poi)、  [百度地图](http://map.baidu.com/)
   
 ## 微信小程序
-[WX-HeatPoint](https://github.com/zrtzrt/WX-HeatPoint)
+
+[WX-HeatPoint](https://github.com/zrtzrt/WX-HeatPoint)  
+使用方式：微信搜索“HeatPoint热点地图” 或 扫描二维码
+![微信二维码](/docs/img/微信二维码2.jpg)
+
+## 荣誉
+
+第六届“中国软件杯”大学生软件设计大赛 一等奖  
+第十二届‘发明杯’大学生创新创业大赛 二等奖 
+![颁奖典礼](/docs/img/颁奖典礼.jpg)
+![获奖奖牌](/docs/img/获奖奖牌.jpg)
 
 ## 协议
 
