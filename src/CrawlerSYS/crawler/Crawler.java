@@ -1,23 +1,16 @@
 package CrawlerSYS.crawler;
 
+import CrawlerSYS.main.MainNodeControler;
+import CrawlerSYS.node.CrawlerServer;
+import CrawlerSYS.node.Dispose;
+import org.apache.log4j.Logger;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.log4j.Logger;
-
-import CrawlerSYS.node.CrawlerServer;
-import CrawlerSYS.node.Dispose;
-
-import CrawlerSYS.main.MainNodeControler;
 
 public class Crawler {
 	private Logger logger = Logger.getLogger(this.getClass());  

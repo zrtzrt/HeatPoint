@@ -1,19 +1,15 @@
 package CrawlerSYS.node;
 
+import com.zaxxer.hikari.HikariDataSource;
+import net.minidev.json.JSONObject;
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import org.apache.log4j.Logger;
-
-import com.zaxxer.hikari.HikariDataSource;
-
-import CrawlerSYS.main.MainReceiveThread;
-
-import net.minidev.json.JSONObject;
 
 public class NodeReceiveThread extends Thread{
 	private Socket sk = null;

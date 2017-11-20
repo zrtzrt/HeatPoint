@@ -1,11 +1,9 @@
 package dataSource;
 
-import org.apache.log4j.Logger;
-
-import com.zaxxer.hikari.HikariDataSource;
-
 import CrawlerSYS.entity.CrawlerReturnEntity;
 import CrawlerSYS.node.Dispose;
+import com.zaxxer.hikari.HikariDataSource;
+import org.apache.log4j.Logger;
 
 public class tradeFromHZH  implements Dispose{
 	private Logger logger = Logger.getLogger(this.getClass());  

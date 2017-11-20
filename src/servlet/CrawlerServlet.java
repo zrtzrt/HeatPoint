@@ -1,37 +1,14 @@
 package servlet;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import dataSource.*;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-
-import dataSource.AllSiteCrawler;
-import dataSource.MeetingFromHDJ;
-import dataSource.ShowFrom228;
-import dataSource.ShowFromDaMai;
-import dataSource.TradeFromCnena;
-import dataSource.TradeFromEShow;
-import dataSource.WeatherAlarm;
-
-import CrawlerSYS.crawler.DefaultConfig;
-import CrawlerSYS.node.CrawlerServer;
-import CrawlerSYS.utils.WebCrawler;
-
-import out.Output;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class CrawlerServlet extends HttpServlet {

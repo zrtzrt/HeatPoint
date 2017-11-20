@@ -1,18 +1,16 @@
 package dataSource;
+
+import CrawlerSYS.utils.DBHelper;
+import CrawlerSYS.utils.StringHelper;
+import CrawlerSYS.utils.WebCrawler;
+import com.alibaba.fastjson.JSONPath;
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-
-
-import com.alibaba.fastjson.JSONPath;
-
-import CrawlerSYS.utils.DBHelper;
-import CrawlerSYS.utils.StringHelper;
-import CrawlerSYS.utils.WebCrawler;
 
 public class WeatherAlarm {
 	private Logger logger = Logger.getLogger(this.getClass()); 

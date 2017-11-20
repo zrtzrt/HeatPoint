@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="HeatPoint">
+    <output-path>$PROJECT_DIR$/out/artifacts/HeatPoint</output-path>
+    <root id="archive" name="HeatPoint.war">
+      <element id="artifact" artifact-name="HeatPoint:war exploded" />
+    </root>
+  </artifact>
+</component>

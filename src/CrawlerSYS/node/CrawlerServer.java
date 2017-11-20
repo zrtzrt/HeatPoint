@@ -1,12 +1,11 @@
 package CrawlerSYS.node;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.net.ServerSocket;
-
+import CrawlerSYS.crawler.DefaultConfig;
 import org.apache.log4j.Logger;
 
-import CrawlerSYS.crawler.DefaultConfig;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class CrawlerServer extends Thread{
 	private ServerSocket server = null;

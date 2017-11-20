@@ -1,12 +1,10 @@
 package dataSource;
 
-import java.util.Date;
-
-import org.apache.log4j.Logger;
-
 import CrawlerSYS.crawler.DefaultConfig;
 import CrawlerSYS.node.CrawlerServer;
-import CrawlerSYS.utils.WebCrawler;
+import org.apache.log4j.Logger;
+
+import java.util.Date;
 
 public class AllSiteCrawler implements Runnable{
 	private Logger logger = Logger.getLogger(this.getClass()); 
@@ -24,10 +22,11 @@ public class AllSiteCrawler implements Runnable{
 		System.out.println("爬虫已启动");
 		logger.info("爬虫已启动");
 		startTime = new Date().getTime();
-		new WeatherAlarm().init();
-		endTime = new Date().getTime();
-		System.out.println("天气信息已完成，用时"+(endTime-startTime)/1000+"s");
-		logger.info("天气信息已完成，用时"+(endTime-startTime)/1000+"s");
+//		new WeatherAlarm().init();
+//		endTime = new Date().getTime();
+//		System.out.println("天气信息已完成，用时"+(endTime-startTime)/1000+"s");
+//		logger.info("天气信息已完成，用时"+(endTime-startTime)/1000+"s");
+
 //		Spider.create(new tradeFromEShow()).addUrl("http://www.eshow365.com/ZhanHui/Ajax/AjaxSearcherV3.aspx?1=1&tag=0&starttime="
 //				+StringHelper.getStringTime("yyyy/MM/dd")+"&page=1").thread(3).run();
 //		Spider.create(new tradeFromHZH()).addUrl("http://www.haozhanhui.com/zhanlanjihua/").thread(2).run();

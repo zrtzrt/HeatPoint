@@ -1,23 +1,9 @@
 package dataSource;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import com.zaxxer.hikari.HikariDataSource;
-
 import CrawlerSYS.entity.CrawlerReturnEntity;
 import CrawlerSYS.node.Dispose;
-import CrawlerSYS.utils.StringHelper;
-
-import dao.ShowDao;
-import dao.impl.ShowDaoImpl;
-
-import entity.LocationEntity;
-import entity.ShowEntity;
+import com.zaxxer.hikari.HikariDataSource;
+import org.apache.log4j.Logger;
 
 public class showFromPiao  implements Dispose{
 	private Logger logger = Logger.getLogger(this.getClass());  

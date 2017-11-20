@@ -1,8 +1,7 @@
 package CrawlerSYS.node;
 
-import com.zaxxer.hikari.HikariDataSource;
-
 import CrawlerSYS.entity.CrawlerReturnEntity;
+import com.zaxxer.hikari.HikariDataSource;
 
 public interface Dispose {
 	public CrawlerReturnEntity resultDispose(CrawlerReturnEntity back,HikariDataSource ds);

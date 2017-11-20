@@ -1,5 +1,19 @@
 package CrawlerSYS.node;
 
+import CrawlerSYS.crawler.DefaultConfig;
+import CrawlerSYS.entity.CrawlerReturnEntity;
+import CrawlerSYS.utils.StringHelper;
+import CrawlerSYS.utils.WebCrawler;
+import com.zaxxer.hikari.HikariDataSource;
+import de.l3s.boilerpipe.BoilerpipeProcessingException;
+import de.l3s.boilerpipe.document.TextDocument;
+import de.l3s.boilerpipe.extractors.CommonExtractors;
+import de.l3s.boilerpipe.sax.BoilerpipeSAXInput;
+import org.apache.log4j.Logger;
+import org.jsoup.Connection;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,23 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import org.apache.log4j.Logger;
-import org.jsoup.Connection;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import com.zaxxer.hikari.HikariDataSource;
-
-import de.l3s.boilerpipe.BoilerpipeProcessingException;
-import de.l3s.boilerpipe.document.TextDocument;
-import de.l3s.boilerpipe.extractors.CommonExtractors;
-import de.l3s.boilerpipe.sax.BoilerpipeSAXInput;
-
-import CrawlerSYS.crawler.DefaultConfig;
-import CrawlerSYS.entity.CrawlerReturnEntity;
 //import CrawlerSYS.utils.DBHelper;
-import CrawlerSYS.utils.StringHelper;
-import CrawlerSYS.utils.WebCrawler;
 
 public class AutoNewsCrawler  implements Callable{
 	

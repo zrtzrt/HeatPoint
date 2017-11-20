@@ -1,17 +1,14 @@
 package dataSource;
 
+import CrawlerSYS.utils.WebCrawler;
+import com.alibaba.fastjson.JSONPath;
+import dao.LocationDao;
+import dao.impl.LocationDaoImpl;
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-
-import CrawlerSYS.utils.WebCrawler;
-
-import com.alibaba.fastjson.JSONPath;
-
-import dao.LocationDao;
-import dao.impl.LocationDaoImpl;
 
 public class LocatFromDaMai {
 	private static Logger logger = Logger.getLogger(LocatFromDaMai.class);  

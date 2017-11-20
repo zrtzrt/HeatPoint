@@ -1,10 +1,9 @@
 package CrawlerSYS.main;
 
-import java.util.List;
-
+import net.minidev.json.JSONObject;
 import org.apache.log4j.Logger;
 
-import net.minidev.json.JSONObject;
+import java.util.List;
 
 public class MainAfterReceive extends Thread{
 	private MainNodeControler nc;

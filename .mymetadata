@@ -3,7 +3,7 @@
   type="WEB"
   name="HeatPoint"
   id="myeclipse.1488526066950"
-  context-root="/allData"
+  context-root="/heatpoint"
   j2ee-spec="6.0"
   archive="HeatPoint.war">
   <attributes>

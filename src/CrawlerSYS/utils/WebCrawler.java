@@ -1,8 +1,15 @@
 package CrawlerSYS.utils;
 
 //import java.io.BufferedReader;
+
+import org.apache.log4j.Logger;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import us.codecraft.xsoup.Xsoup;
+
+import javax.net.ssl.*;
 import java.io.IOException;
-//import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -11,25 +18,16 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+//import java.io.InputStreamReader;
 //import java.util.zip.GZIPInputStream;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.apache.log4j.Logger;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import us.codecraft.xsoup.Xsoup;
-
 public class WebCrawler {
-	private static Logger logger = Logger.getLogger(WebCrawler.class);  
-	
+	private static Logger logger = Logger.getLogger(WebCrawler.class);
+
+	public WebCrawler() throws IOException {
+	}
+
 	public static Connection getConnect(String url, Map<String,String> header, Map<String,String> cookie){
 		Connection con;
 //		Document doc = null;
@@ -77,7 +75,26 @@ e.printStackTrace();logger.error("Exception",e);
 e.printStackTrace();logger.error("Exception",e);
 		}
 	}
-	
+
+	public static String post(String url,Map<String,String> data,Map<String,String> header){
+		//获取请求连接
+		Connection con = getConnect(url, header, null);
+		//遍历生成参数
+		if(data!=null){
+			for (Map.Entry<String, String> entry : data.entrySet()) {
+				//添加参数
+				con.data(entry.getKey(), entry.getValue());
+			}
+		}
+		Document doc = null;
+		try {
+			doc = con.post();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		System.out.println(doc);
+		return doc.body().text();
+	}
 	public static String get(String url, Map<String,String> header, String encode){
 		String result = "";
 		try {

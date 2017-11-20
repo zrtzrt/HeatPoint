@@ -1,24 +1,20 @@
 package dataSource;
 
+import CrawlerSYS.crawler.DefaultConfig;
+import CrawlerSYS.utils.StringHelper;
+import CrawlerSYS.utils.WebCrawler;
+import com.alibaba.fastjson.JSONPath;
+import com.zaxxer.hikari.HikariDataSource;
+import dao.ShowDao;
+import dao.impl.ShowDaoImpl;
+import entity.LocationEntity;
+import entity.ShowEntity;
+import org.apache.log4j.Logger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import CrawlerSYS.crawler.DefaultConfig;
-import CrawlerSYS.utils.StringHelper;
-import CrawlerSYS.utils.WebCrawler;
-
-import com.alibaba.fastjson.JSONPath;
-import com.zaxxer.hikari.HikariDataSource;
-
-import dao.ShowDao;
-import dao.impl.ShowDaoImpl;
-
-import entity.LocationEntity;
-import entity.ShowEntity;
 
 public class ShowFrom228 
 //implements PageProcessor

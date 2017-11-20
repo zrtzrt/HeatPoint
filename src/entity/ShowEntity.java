@@ -1,9 +1,9 @@
 package entity;
 
+import CrawlerSYS.utils.StringHelper;
+
 import java.util.Date;
 import java.util.List;
-
-import CrawlerSYS.utils.StringHelper;
 
 public class ShowEntity {
 	private int id;

@@ -1,5 +1,13 @@
 package dao.impl;
 
+import CrawlerSYS.utils.StringHelper;
+import CrawlerSYS.utils.WebCrawler;
+import com.alibaba.fastjson.JSONPath;
+import com.zaxxer.hikari.HikariDataSource;
+import dao.TradeDao;
+import entity.TradeEntity;
+import org.apache.log4j.Logger;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
@@ -8,19 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
-
-import com.alibaba.fastjson.JSONPath;
-import com.zaxxer.hikari.HikariDataSource;
-
-import dao.TradeDao;
-
-import CrawlerSYS.utils.WebCrawler;
 //import CrawlerSYS.utils.DBHelper;
-import CrawlerSYS.utils.StringHelper;
-
-
-import entity.TradeEntity;
 
 public class TradeDaoImpl implements TradeDao{
 	private Logger logger = Logger.getLogger(this.getClass());  

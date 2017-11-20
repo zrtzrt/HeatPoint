@@ -1,5 +1,12 @@
 package CrawlerSYS.node;
 
+import CrawlerSYS.crawler.DefaultConfig;
+import CrawlerSYS.entity.CrawlerReturnEntity;
+import CrawlerSYS.utils.StringHelper;
+import com.zaxxer.hikari.HikariDataSource;
+import net.minidev.json.JSONObject;
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -11,15 +18,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-
-import org.apache.log4j.Logger;
-
-import com.zaxxer.hikari.HikariDataSource;
-
-import net.minidev.json.JSONObject;
-import CrawlerSYS.utils.StringHelper;
-import CrawlerSYS.crawler.DefaultConfig;
-import CrawlerSYS.entity.CrawlerReturnEntity;
 
 public class NodeAfterReceive extends Thread{
 	private JSONObject m = null;

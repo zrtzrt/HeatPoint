@@ -1,24 +1,20 @@
 package dao.impl;
 
+import CrawlerSYS.utils.DBHelper;
+import CrawlerSYS.utils.StringHelper;
+import dao.LocationDao;
+import entity.LocationEntity;
+import entity.ShowEntity;
+import entity.TradeEntity;
+import org.apache.log4j.Logger;
+
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import CrawlerSYS.utils.DBHelper;
-import CrawlerSYS.utils.StringHelper;
-
-
-import dao.LocationDao;
-import entity.LocationEntity;
-import entity.ShowEntity;
-import entity.TradeEntity;
 
 public class LocationDaoImpl implements LocationDao{
 	private Logger logger = Logger.getLogger(this.getClass());  

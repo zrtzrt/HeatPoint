@@ -1,22 +1,16 @@
 package CrawlerSYS.main;
 
+import CrawlerSYS.crawler.DefaultConfig;
+import CrawlerSYS.utils.StringHelper;
+import net.minidev.json.JSONObject;
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-
-import net.minidev.json.JSONObject;
-
-import CrawlerSYS.crawler.DefaultConfig;
-import CrawlerSYS.utils.StringHelper;
+import java.util.*;
 
 public class MainNodeControler implements Runnable{
 	

@@ -1,11 +1,7 @@
 package out;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
-
+import CrawlerSYS.utils.DBHelper;
+import CrawlerSYS.utils.StringHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -18,8 +14,11 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import CrawlerSYS.utils.DBHelper;
-import CrawlerSYS.utils.StringHelper;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Date;
 
 
 public class Output {

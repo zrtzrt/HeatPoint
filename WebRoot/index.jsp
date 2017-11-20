@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	response.setContentType("text/html;charset=utf-8");
 	request.setCharacterEncoding("utf-8");		
 	%>
-    <title>HeatPoint</title>
+    <title>地理位置综合信息平台HeatPoint</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -29,16 +29,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="${pageContext.request.contextPath}/content/script.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/content/airportGPS.js"></script>
 	<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ALeBoFSYVxY6lExIZgptQGGK7skwRE8M"></script>
+	  <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
   </head>
   
   <body>
    		<div id="search">
-			<%@ include file="/pages/search.jsp" %>
+			<%@ include file="pages/search.jsp" %>
 		</div>
 		<div id="map">
-			<div class="panel panel-info">
 				<div id="allmap" class="panel-body"></div>
-			</div>
 		</div>
 		<div id="info">
 		</div>

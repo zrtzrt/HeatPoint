@@ -1,26 +1,22 @@
 package dataSource;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import com.zaxxer.hikari.HikariDataSource;
-
-import dao.TradeDao;
-import dao.impl.TradeDaoImpl;
-
 import CrawlerSYS.crawler.Crawler;
 import CrawlerSYS.entity.CrawlerReturnEntity;
 import CrawlerSYS.node.Dispose;
 import CrawlerSYS.utils.StringHelper;
 import CrawlerSYS.utils.WebCrawler;
-
+import com.zaxxer.hikari.HikariDataSource;
+import dao.TradeDao;
+import dao.impl.TradeDaoImpl;
 import entity.LocationEntity;
 import entity.TradeEntity;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TradeFromCnena  implements Dispose{
 	private Logger logger = Logger.getLogger(this.getClass());  

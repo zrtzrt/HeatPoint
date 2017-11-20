@@ -1,5 +1,13 @@
 package CrawlerSYS.node;
 
+import CrawlerSYS.crawler.DefaultConfig;
+import CrawlerSYS.entity.CrawlerReturnEntity;
+import CrawlerSYS.utils.StringHelper;
+import CrawlerSYS.utils.WebCrawler;
+import com.zaxxer.hikari.HikariDataSource;
+import org.apache.log4j.Logger;
+import org.jsoup.Connection;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -8,16 +16,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
-
-import org.apache.log4j.Logger;
-import org.jsoup.Connection;
-
-import com.zaxxer.hikari.HikariDataSource;
-
-import CrawlerSYS.crawler.DefaultConfig;
-import CrawlerSYS.entity.CrawlerReturnEntity;
-import CrawlerSYS.utils.StringHelper;
-import CrawlerSYS.utils.WebCrawler;
 
 public class SingleUrlCrawler  implements Callable{
 	private boolean rtLink = false;

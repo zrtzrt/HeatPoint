@@ -1,10 +1,9 @@
 package CrawlerSYS.main;
 
-import java.io.IOException;
-
+import net.minidev.json.JSONObject;
 import org.apache.log4j.Logger;
 
-import net.minidev.json.JSONObject;
+import java.io.IOException;
 
 public class MainReceiveThread  extends Thread{
 	private MainNodeControler nc;
